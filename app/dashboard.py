@@ -23,7 +23,7 @@ BUNDLE_PATH = Path(__file__).parent / "data" / "dashboard_bundle.json"
 def load_bundle() -> dict:
     if not BUNDLE_PATH.exists():
         return {}
-    with open(BUNDLE_PATH) as f:
+    with open(BUNDLE_PATH, encoding="utf-8") as f:
         return json.load(f)
 
 

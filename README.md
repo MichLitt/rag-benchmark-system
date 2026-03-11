@@ -137,6 +137,8 @@ uv run python scripts/build_dense_sharded_index.py
 - `retrieval_failure` — Gold answer not present in any retrieved chunk
 - `generation_failure` — Gold answer present in context but LLM got it wrong
 
+See [report/failure_comparison_table.md](report/failure_comparison_table.md) for the full cross-config comparison and [report/findings_summary.md](report/findings_summary.md) for detailed findings.
+
 ## Project Structure
 
 ```
