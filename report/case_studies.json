@@ -1,0 +1,1370 @@
+[
+  {
+    "category": "all_failed",
+    "dataset": "hotpotqa",
+    "query_id": "dev_0",
+    "question": "",
+    "gold_answers": [
+      "yes"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Based on the retrieved context, I cannot provide a definitive answer. The context contains an entry about Ed Wood (the filmmaker) but does not include any information about Scott Derrickson. While Ed Wood was an American filmmaker (from general knowledge), there is no information about Scott Derrickson's nationality in the provided context.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Darryl Talley",
+          "Benjamin D. Wood",
+          "Scotty Grainger",
+          "Wood Brothers Racing",
+          "Scott Oakes"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Based on the retrieved context, I cannot definitively answer this question. The context does not contain any information about Scott Derrickson, and while there are entries about Ed Wood (the film director), there is no nationality information provided for him in the context. Therefore, I cannot determine whether they were of the same nationality based solely on the provided information.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Scott Wood",
+          "Ed Wood",
+          "Christian Wood",
+          "Ed Wood (film)",
+          "Miles Wood"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Based on the provided context, I cannot definitively answer this question. The context contains information about Scott Wood (an American basketball player), but not about Scott Derrickson. Ed Wood (the film director) is mentioned, but his nationality is not explicitly stated in the provided text - though it is well-known that Ed Wood was American. However, since there's no information about Scott Derrickson in the context, I cannot determine if they share the same nationality.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Scott Wood",
+          "Ed Wood",
+          "Christian Wood",
+          "Ed Wood (film)",
+          "Miles Wood"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Yes, both Scott Derrickson and Ed Wood were American. Scott Derrickson is described as \"an American director, screenwriter and producer\" and Ed Wood is described as the American director of films like \"Plan 9 from Outer Space.\"",
+        "f1": 0.052631578947368425,
+        "is_em": false,
+        "retrieved_titles": [
+          "Scott Derrickson",
+          "Gregory Walcott",
+          "Tom Mason",
+          "Plan 9 from Outer Space",
+          "Paul Harris Boardman"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Based on the retrieved context, I cannot definitively answer this question. The context does not contain information about \"Scott Derrickson\" (only mentions \"Scott Wood\" who is a basketball player). For Ed Wood, the context describes him but does not explicitly state his nationality. From general knowledge, both are American film directors, but I can only answer based on the provided context.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Scott Wood",
+          "Ed Wood",
+          "Christian Wood",
+          "Ed Wood (film)",
+          "Miles Wood"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "all_failed",
+    "dataset": "hotpotqa",
+    "query_id": "dev_1",
+    "question": "",
+    "gold_answers": [
+      "Chief of Protocol"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "The woman who portrayed Corliss Archer in the 1945 film \"Kiss and Tell\" was Shirley Temple. While the provided context doesn't mention her government position, Shirley Temple later served as U.S. Ambassador to Ghana (1969-1971) and later to Czechoslovakia (1989-1992).",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Meet Corliss Archer",
+          "Kiss and Tell (1945 film)",
+          "Kiss and Tell (play)",
+          "A Kiss for Corliss",
+          "Janet Waldo"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "She served as the United States Ambassador to Ghana.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Kiss and Tell (1945 film)",
+          "Meet Corliss Archer",
+          "A Kiss for Corliss",
+          "Kathryn Card",
+          "Kiss and Tell (play)"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Shirley Temple, who played Corliss Archer in the 1945 film \"Kiss and Tell,\" later served as the United States Ambassador to Czechoslovakia (1989–1993) and as Chief of Protocol of the United States (1987–1989).",
+        "f1": 0.15789473684210528,
+        "is_em": false,
+        "retrieved_titles": [
+          "Kiss and Tell (1945 film)",
+          "Meet Corliss Archer",
+          "A Kiss for Corliss",
+          "Kathryn Card",
+          "Kiss and Tell (play)"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Kiss and Tell (1945 film)",
+          "Meet Corliss Archer",
+          "A Kiss for Corliss",
+          "Kathryn Card",
+          "Kiss and Tell (play)"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Shirley Temple, who played Corliss Archer in the 1945 film \"Kiss and Tell,\" later served as the United States Ambassador to Ghana.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Kiss and Tell (1945 film)",
+          "Meet Corliss Archer",
+          "A Kiss for Corliss",
+          "Kathryn Card",
+          "Kiss and Tell (play)"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "all_failed",
+    "dataset": "hotpotqa",
+    "query_id": "dev_2",
+    "question": "",
+    "gold_answers": [
+      "Animorphs"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Based on the retrieved context, I cannot find a specific match for this series. The context provided does not contain information about a science fantasy young adult series with first-person narration and companion books about enslaved worlds and alien species. However, based on the description you provided, this sounds like it could be referring to the \"Shadowscale\" series by Aaron Johnston, or possibly \"Animorphs\" by K.A. Applegate, though neither perfectly matches all the details in your question. If you have any additional context or details about the series, I'd be happy to help further.",
+        "f1": 0.020408163265306124,
+        "is_em": false,
+        "retrieved_titles": [
+          "Earthling Publications",
+          "James Maxey",
+          "Storylines Children's Literature Foundation of New Zealand Notable Books List",
+          "Tad Williams",
+          "The Vampire Huntress Legend Series"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Based on the retrieved context, I cannot identify a specific series that matches your description. The context does not contain information about a science fantasy young adult series told in first person with companion books about enslaved worlds and alien species. The context includes various series like \"Far Horizons\" (first-contact novellas), \"Rithmatist\" (Brandon Sanderson's YA fantasy), and several other science fiction and fantasy series, but none match the specific details you mentioned (first-person narration, companion books about enslaved worlds and alien species). Could you provide more details or clarify the question?",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Far Horizons",
+          "The Emerald Atlas",
+          "James Maxey",
+          "A Wizard of Earthsea",
+          "Ology (book series)"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Based on the retrieved context, I cannot identify a specific series that matches all the described characteristics (science fantasy young adult series, first-person narration, companion books about enslaved worlds and alien species). The context provided does not contain sufficient information about such a series. The books mentioned include \"Far Horizons\" (a first-contact collection), \"The Emerald Atlas\" (a children's fantasy trilogy), works by James Maxey, \"A Wizard of Earthsea,\" and the \"Ology\" series, but none match the specific description provided in your question.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Far Horizons",
+          "The Emerald Atlas",
+          "James Maxey",
+          "A Wizard of Earthsea",
+          "Ology (book series)"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Based on the context provided, I cannot definitively identify this series. The retrieved context does not contain information about a science fantasy young adult series with first-person narration and companion books about enslaved worlds and alien species. The contexts cover various series like The Emerald Atlas, Rithmatist, Ology, Young Wizards, and others, but none match the specific description of companion books narrating stories of enslaved worlds and alien species. This appears to be a series not included in the provided context. Without additional information, I cannot confidently identify the title from the given sources.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Far Horizons",
+          "The Emerald Atlas",
+          "James Maxey",
+          "A Wizard of Earthsea",
+          "Ology (book series)"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Based on the provided context, I cannot identify a series that matches the specific description given. The context does not contain information about a science fantasy young adult series told in first person with companion books about enslaved worlds and alien species. However, based on the description provided (science fantasy YA series, first person, companion books about enslaved worlds and alien species), this sounds like it could potentially be referring to a series like \"The Last Starfighter\" or perhaps an anime-inspired series, though nothing in the provided context confirms this identification. The context appears to contain unrelated book series and author information that does not align with your question.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Far Horizons",
+          "The Emerald Atlas",
+          "James Maxey",
+          "A Wizard of Earthsea",
+          "Ology (book series)"
+        ],
+        "recall_at_k": 0.0
+      }
+    }
+  },
+  {
+    "category": "decompose_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_4",
+    "question": "",
+    "gold_answers": [
+      "Greenwich Village, New York City"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Based on the provided context, the information about which New York city the director of \"Big Stone Gap\" (Adriana Trigiani) is based in is not available. The context indicates she is \"of Roseto, Pennsylvania\" but does not specify a New York city location.",
+        "f1": 0.125,
+        "is_em": false,
+        "retrieved_titles": [
+          "Big Stone Gap (film)",
+          "Adriana Trigiani",
+          "Big Stone Gap, Virginia",
+          "So This Is New York",
+          "New York New York (2016 film)"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Based on the retrieved context, the director of \"Big Stone Gap\" is Adriana Trigiani. However, the context does not specify what New York city she is based in. The context only mentions she is \"of Roseto, Pennsylvania\" but does not provide information about a New York city location for her.",
+        "f1": 0.1090909090909091,
+        "is_em": false,
+        "retrieved_titles": [
+          "Big Stone Gap (film)",
+          "Adriana Trigiani",
+          "So This Is New York",
+          "New York New York (2016 film)",
+          "Big Stone Gap, Virginia"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Based on the retrieved context, I cannot determine the answer to this question. The context indicates that Adriana Trigiani directed \"Big Stone Gap\" and that she is \"of Roseto, Pennsylvania,\" but it does not mention any New York city where she is based.",
+        "f1": 0.125,
+        "is_em": false,
+        "retrieved_titles": [
+          "Big Stone Gap (film)",
+          "Adriana Trigiani",
+          "So This Is New York",
+          "New York New York (2016 film)",
+          "Big Stone Gap, Virginia"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Big Stone Gap (film)",
+          "Adriana Trigiani",
+          "So This Is New York",
+          "New York New York (2016 film)",
+          "Big Stone Gap, Virginia"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "New York City.",
+        "f1": 0.7499999999999999,
+        "is_em": false,
+        "retrieved_titles": [
+          "Big Stone Gap (film)",
+          "Adriana Trigiani",
+          "So This Is New York",
+          "New York New York (2016 film)",
+          "Big Stone Gap, Virginia"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "decompose_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_5",
+    "question": "",
+    "gold_answers": [
+      "YG Entertainment"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "The South Korean boy group WINNER was formed by YG Entertainment.",
+        "f1": 0.3076923076923077,
+        "is_em": false,
+        "retrieved_titles": [
+          "2014 S/S",
+          "S (South Korean band)",
+          "Nam Tae-hyun",
+          "BTS albums discography",
+          "South Club"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "2014 S/S is the debut album of South Korean boy group WINNER, which was formed by YG Entertainment.",
+        "f1": 0.1904761904761905,
+        "is_em": false,
+        "retrieved_titles": [
+          "2014 S/S",
+          "S (South Korean band)",
+          "BTS albums discography",
+          "S.E.S. (group)",
+          ""
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "2014 S/S is the debut album of South Korean boy group WINNER, which was formed by YG Entertainment.",
+        "f1": 0.1904761904761905,
+        "is_em": false,
+        "retrieved_titles": [
+          "2014 S/S",
+          "S (South Korean band)",
+          "BTS albums discography",
+          "S.E.S. (group)",
+          ""
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "The retrieved context does not contain information about a South Korean boy group's debut album \"2014 S/S\" or who formed such a group. The context provided covers various unrelated topics including game shows, songs, and philosophical discussions about knowledge, but nothing about K-pop groups or album releases.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Tell Me Something I Don't Know (game show)",
+          "You Don't Know (702 song)",
+          "Simple non-inferential passage",
+          "I know that I know nothing",
+          "I Don't Know (Paul McCartney song)"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "YG Entertainment",
+        "f1": 1.0,
+        "is_em": true,
+        "retrieved_titles": [
+          "2014 S/S",
+          "S (South Korean band)",
+          "BTS albums discography",
+          "S.E.S. (group)",
+          ""
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "hyde_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_11",
+    "question": "",
+    "gold_answers": [
+      "David Weissman"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Based on the retrieved context, I can identify that the film starring Nicolas Cage and Téa Leoni is \"The Family Man\" (2000), as mentioned in context [17]. However, the context does not provide information about the screenwriter credits for \"Evolution\" or who co-wrote \"The Family Man.\" From general film knowledge (not from the provided context), the film \"Evolution\" (2001) was written by David Diamond and David Weissman. They would be the screenwriters with credits for \"Evolution\" who could potentially have co-written another film. However, I cannot confirm from the given context whether either of them co-wrote \"The Family Man.\"",
+        "f1": 0.03809523809523809,
+        "is_em": false,
+        "retrieved_titles": [
+          "Adaptation (film)",
+          "Andrew Stanton",
+          "California State University, Long Beach",
+          "John H. Foote",
+          "Alligator (film)"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "California State University, Long Beach",
+          "Adaptation (film)",
+          "John H. Foote",
+          "Téa Leoni",
+          "Gore Verbinski"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Based on the context, I can identify that Nicolas Cage and Téa Leoni co-starred in \"The Family Man\" (2000). However, the context doesn't provide information about screenwriters for either \"Evolution\" or \"The Family Man.\" The most relevant information I can extract is that \"The Family Man\" starred both Nicolas Cage and Téa Leoni, but I cannot determine which screenwriter from \"Evolution\" also co-wrote that film based on the provided context.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "California State University, Long Beach",
+          "Adaptation (film)",
+          "John H. Foote",
+          "Téa Leoni",
+          "Gore Verbinski"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "David Weissman",
+        "f1": 1.0,
+        "is_em": true,
+        "retrieved_titles": [
+          "David Weissman",
+          "David Diamond (screenwriter)",
+          "The Family Man",
+          "Téa Leoni",
+          "Evolution (2001 film)"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "California State University, Long Beach",
+          "Adaptation (film)",
+          "John H. Foote",
+          "Téa Leoni",
+          "Gore Verbinski"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "hyde_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_14",
+    "question": "",
+    "gold_answers": [
+      "from 1986 to 2013"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "The manager who recruited David Beckham was Sir Alex Ferguson, who managed Manchester United from 1986 to 2013.",
+        "f1": 0.3636363636363636,
+        "is_em": false,
+        "retrieved_titles": [
+          "David Beckham",
+          "1996–97 in English football",
+          "John Beck (footballer)",
+          "Michael Edelson",
+          "1997–98 Manchester United F.C. season"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Based on the context, Alex Ferguson was the manager who recruited David Beckham (signed in 1991). The context shows Ferguson replaced Ron Atkinson and is described as \"the most successful manager in British Football History.\" However, the specific timeframe for his management is not explicitly stated in the retrieved context, though it covers periods when Beckham played under him (1991-2003).",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "David Beckham",
+          "Michael Edelson",
+          "John Beck (footballer)",
+          "2010–11 in English football",
+          "1996–97 in English football"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Sir Alex Ferguson, who recruited David Beckham, managed Manchester United from 1986 to 2013.",
+        "f1": 0.4444444444444445,
+        "is_em": false,
+        "retrieved_titles": [
+          "David Beckham",
+          "Michael Edelson",
+          "John Beck (footballer)",
+          "2010–11 in English football",
+          "1996–97 in English football"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Sir Alex Ferguson managed Manchester United from 1986 to 2013.",
+        "f1": 0.5714285714285715,
+        "is_em": false,
+        "retrieved_titles": [
+          "David Beckham",
+          "Fergie's Fledglings",
+          "Michael Edelson",
+          "Martin Edwards",
+          "Eric Harrison (footballer)"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "The football manager who recruited David Beckham was Sir Alex Ferguson, who managed Manchester United from 1986 to 2013.",
+        "f1": 0.34782608695652173,
+        "is_em": false,
+        "retrieved_titles": [
+          "David Beckham",
+          "Michael Edelson",
+          "John Beck (footballer)",
+          "2010–11 in English football",
+          "1996–97 in English football"
+        ],
+        "recall_at_k": 0.0
+      }
+    }
+  },
+  {
+    "category": "hyde_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_18",
+    "question": "",
+    "gold_answers": [
+      "1969 until 1974"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "He served during President Richard Nixon’s administration, which spanned 1969 – 1974.",
+        "f1": 0.26666666666666666,
+        "is_em": false,
+        "retrieved_titles": [
+          "Roger O. Egeberg",
+          "Assistant Secretary for Health",
+          "John Francis Eisold",
+          "Andrew B. Steinberg",
+          "William R. Steiger"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Richard Nixon served as president from 1969 to 1974, which covers the period when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs (1969-1971).",
+        "f1": 0.13333333333333333,
+        "is_em": false,
+        "retrieved_titles": [
+          "Roger O. Egeberg",
+          "Assistant Secretary for Health",
+          "William R. Steiger",
+          "Andrew Bremberg",
+          "J. Michael McGinnis"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs from 1969 to 1971, which was during President Richard Nixon's administration. Nixon served from 1969 to 1974.",
+        "f1": 0.125,
+        "is_em": false,
+        "retrieved_titles": [
+          "Roger O. Egeberg",
+          "Assistant Secretary for Health",
+          "William R. Steiger",
+          "Andrew Bremberg",
+          "J. Michael McGinnis"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "1969-1974",
+        "f1": 0.8,
+        "is_em": false,
+        "retrieved_titles": [
+          "Roger O. Egeberg",
+          "Assistant Secretary for Health",
+          "William R. Steiger",
+          "Andrew Bremberg",
+          "J. Michael McGinnis"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Richard Nixon served as president from 1969 to 1974. Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs from 1969 to 1971, during Nixon's administration.",
+        "f1": 0.12903225806451613,
+        "is_em": false,
+        "retrieved_titles": [
+          "Roger O. Egeberg",
+          "Assistant Secretary for Health",
+          "William R. Steiger",
+          "Andrew Bremberg",
+          "J. Michael McGinnis"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "reranker_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_20",
+    "question": "",
+    "gold_answers": [
+      "Pedro Rodríguez"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Pedro Rodríguez is the other Mexican Formula One driver who has held the podium. He is the only Mexican driver to have won a Grand Prix, with 2 victories out of 54 starts.",
+        "f1": 0.1621621621621622,
+        "is_em": false,
+        "retrieved_titles": [
+          "Formula One drivers from Mexico",
+          "Romain Iannetta",
+          "Sergio Pérez",
+          "2010 Carrera Panamericana",
+          "Ferrari 512"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Pedro Rodríguez.",
+        "f1": 1.0,
+        "is_em": true,
+        "retrieved_titles": [
+          "Formula One drivers from Mexico",
+          "Sergio Pérez",
+          "1990 Mexican Grand Prix",
+          "1990 Japanese Grand Prix",
+          "Formula One drivers from Spain"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Pedro Rodríguez.",
+        "f1": 1.0,
+        "is_em": true,
+        "retrieved_titles": [
+          "Formula One drivers from Mexico",
+          "Sergio Pérez",
+          "1990 Mexican Grand Prix",
+          "1990 Japanese Grand Prix",
+          "Formula One drivers from Spain"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Pedro Rodríguez.",
+        "f1": 1.0,
+        "is_em": true,
+        "retrieved_titles": [
+          "Formula One drivers from Mexico",
+          "Sergio Pérez",
+          "1990 Mexican Grand Prix",
+          "1990 Japanese Grand Prix",
+          "Formula One drivers from Spain"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Pedro Rodríguez.",
+        "f1": 1.0,
+        "is_em": true,
+        "retrieved_titles": [
+          "Formula One drivers from Mexico",
+          "Sergio Pérez",
+          "1990 Mexican Grand Prix",
+          "1990 Japanese Grand Prix",
+          "Formula One drivers from Spain"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "reranker_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_28",
+    "question": "",
+    "gold_answers": [
+      "Henry J. Kaiser"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Henry J. Kaiser. He was the American industrialist known as the father of modern American shipbuilding, and he founded Kaiser Steel, which later became Kaiser Ventures.",
+        "f1": 0.20689655172413793,
+        "is_em": false,
+        "retrieved_titles": [
+          "Henry J. Kaiser",
+          "Kaiser Shipyards",
+          "Kaiser Motors",
+          "Kaiser Steel",
+          "Kaiser Center"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Henry J. Kaiser",
+        "f1": 1.0,
+        "is_em": true,
+        "retrieved_titles": [
+          "Henry J. Kaiser",
+          "Kaiser Steel",
+          "Kaiser Shipyards",
+          "Kaiser Center",
+          "Kaiser Motors"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Yes. Kaiser Ventures (originally Kaiser Steel) was founded by Henry J. Kaiser, who became known as the father of modern American shipbuilding.",
+        "f1": 0.24000000000000002,
+        "is_em": false,
+        "retrieved_titles": [
+          "Henry J. Kaiser",
+          "Kaiser Steel",
+          "Kaiser Shipyards",
+          "Kaiser Center",
+          "Kaiser Motors"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Yes. Kaiser Ventures (originally Kaiser Steel) was founded by Henry J. Kaiser, who became known as the father of modern American shipbuilding.",
+        "f1": 0.24000000000000002,
+        "is_em": false,
+        "retrieved_titles": [
+          "Henry J. Kaiser",
+          "Kaiser Steel",
+          "Kaiser Shipyards",
+          "Kaiser Center",
+          "Kaiser Motors"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "It was founded by Henry J. Kaiser – the American industrialist famous as the “father of modern American shipbuilding.”",
+        "f1": 0.2857142857142857,
+        "is_em": false,
+        "retrieved_titles": [
+          "Henry J. Kaiser",
+          "Kaiser Steel",
+          "Kaiser Shipyards",
+          "Kaiser Center",
+          "Kaiser Motors"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "reranker_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_34",
+    "question": "",
+    "gold_answers": [
+      "Letters to Cleo"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Based on the context, both bands had similar numbers of members. Screaming Trees had 4-5 members over time (Mark Lanegan, Gary Lee Conner, Van Conner, Mark Pickerel, and Barrett Martin who replaced Pickerel). Letters to Cleo's definitive lineup also had 5 members (Hanley, McKenna, Michael Eisenstein, Stacy Jones, and Scott Riebling). It's essentially a tie, with both bands having around 5 members.",
+        "f1": 0.08823529411764706,
+        "is_em": false,
+        "retrieved_titles": [
+          "Screaming Trees",
+          "Letters to Cleo",
+          "Jazz Bilzen",
+          "Dream Theater",
+          ""
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Letters to Cleo had more members.",
+        "f1": 0.6666666666666666,
+        "is_em": false,
+        "retrieved_titles": [
+          "Letters to Cleo",
+          "Screaming Trees",
+          "Screaming Trees discography",
+          "Mark Pickerel",
+          "The Giving Tree Band"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Letters to Cleo had more members. Letters to Cleo's definitive lineup consisted of 5 members (Hanley, McKenna, Michael Eisenstein, Stacy Jones, and Scott Riebling), while Screaming Trees had 4 members (Mark Lanegan, Gary Lee Conner, Van Conner, and Mark Pickerel/Barrett Martin).",
+        "f1": 0.13043478260869565,
+        "is_em": false,
+        "retrieved_titles": [
+          "Letters to Cleo",
+          "Screaming Trees",
+          "Screaming Trees discography",
+          "Mark Pickerel",
+          "The Giving Tree Band"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Letters to Cleo had more members. The definitive lineup of Letters to Cleo had 5 members (Hanley, McKenna, Michael Eisenstein, Stacy Jones, and Scott Riebling), while Screaming Trees had 4 members (Mark Lanegan, Gary Lee Conner, Van Conner, and Barrett Martin).",
+        "f1": 0.13636363636363635,
+        "is_em": false,
+        "retrieved_titles": [
+          "Letters to Cleo",
+          "Screaming Trees",
+          "Kay Hanley",
+          "Linus of Hollywood",
+          "Clea (band)"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Letters to Cleo had more members (5) than Screaming Trees (4). Letters to Cleo's definitive lineup consisted of Hanley, McKenna, Michael Eisenstein, Stacy Jones, and Scott Riebling, while Screaming Trees had four members (Lanegan, Gary Lee Conner, Van Conner, and Barrett Martin at their most successful period).",
+        "f1": 0.11764705882352941,
+        "is_em": false,
+        "retrieved_titles": [
+          "Letters to Cleo",
+          "Screaming Trees",
+          "Screaming Trees discography",
+          "Mark Pickerel",
+          "The Giving Tree Band"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "decompose_helped",
+    "dataset": "hotpotqa",
+    "query_id": "dev_36",
+    "question": "",
+    "gold_answers": [
+      "2000"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Carlo Rovelli has worked in France since 2000.",
+        "f1": 0.2222222222222222,
+        "is_em": false,
+        "retrieved_titles": [
+          "Carlo Rovelli",
+          "Mauro Francaviglia",
+          "Johann Baptiste Horvath",
+          "Instruction in Latin",
+          "Stefano Pace"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "The Italian physicist is Carlo Rovelli, and he has worked in France since **2000**.",
+        "f1": 0.13333333333333333,
+        "is_em": false,
+        "retrieved_titles": [
+          "Carlo Rovelli",
+          "Enrico Fermi",
+          "Giuseppe Arcidiacono",
+          "Gabriele Veneziano",
+          "Paolo Budinich"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Since 2000.",
+        "f1": 0.6666666666666666,
+        "is_em": false,
+        "retrieved_titles": [
+          "Carlo Rovelli",
+          "Enrico Fermi",
+          "Giuseppe Arcidiacono",
+          "Gabriele Veneziano",
+          "Paolo Budinich"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Based on the retrieved context, the author of \"Seven Brief Lessons on Physics\" is Carlo Rovelli, an Italian theoretical physicist. However, the context does not provide information about when he began working in France. The available information only states that he is Italian, born in 1956, and has authored over 200 scientific articles and popular science books, with \"Seven Brief Lessons on Physics\" translated into 41 languages.",
+        "f1": 0.0,
+        "is_em": false,
+        "retrieved_titles": [
+          "Carlo Rovelli",
+          "Robert Resnick",
+          "Alexandre Bouzdine",
+          "Paolo Budinich",
+          "L'huomo di lettere"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Since 2000.",
+        "f1": 0.6666666666666666,
+        "is_em": false,
+        "retrieved_titles": [
+          "Carlo Rovelli",
+          "Enrico Fermi",
+          "Giuseppe Arcidiacono",
+          "Gabriele Veneziano",
+          "Paolo Budinich"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "config_flip",
+    "dataset": "hotpotqa",
+    "query_id": "dev_52",
+    "question": "",
+    "gold_answers": [
+      "Indianapolis Motor Speedway"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "The Indianapolis Motor Speedway in Indiana hosts the Indianapolis 500, a 500-mile race held every May (traditionally on Memorial Day weekend).",
+        "f1": 0.24000000000000002,
+        "is_em": false,
+        "retrieved_titles": [
+          "Midwestern United States",
+          "Oval track racing",
+          "2017 ISM Connect 300",
+          "Great Midwest Relay",
+          "Milwaukee Mile"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "The Indianapolis Motor Speedway hosts the Indianapolis 500, a 500-mile race held every May in Indianapolis, Indiana.",
+        "f1": 0.2857142857142857,
+        "is_em": false,
+        "retrieved_titles": [
+          "Great Midwest Relay",
+          "Midwestern United States",
+          "Twelve Mile 500",
+          "Milwaukee Mile",
+          "Hoosier Hundred"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "The Indianapolis Motor Speedway hosts the Indianapolis 500, a 500-mile race held every May.",
+        "f1": 0.33333333333333337,
+        "is_em": false,
+        "retrieved_titles": [
+          "Great Midwest Relay",
+          "Midwestern United States",
+          "Twelve Mile 500",
+          "Milwaukee Mile",
+          "Hoosier Hundred"
+        ],
+        "recall_at_k": 0.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "The Indianapolis Motor Speedway in Speedway, Indiana hosts the Indianapolis 500-mile race every May over Memorial Day weekend.",
+        "f1": 0.2727272727272727,
+        "is_em": false,
+        "retrieved_titles": [
+          "Indianapolis 500",
+          "",
+          "2016 Indianapolis 500",
+          "2017 Indianapolis 500",
+          "2019 Indianapolis 500"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "The Indianapolis Motor Speedway in Indianapolis, Indiana hosts the Indianapolis 500, a 500-mile race held every May.",
+        "f1": 0.2857142857142857,
+        "is_em": false,
+        "retrieved_titles": [
+          "Great Midwest Relay",
+          "Midwestern United States",
+          "Twelve Mile 500",
+          "Milwaukee Mile",
+          "Hoosier Hundred"
+        ],
+        "recall_at_k": 0.0
+      }
+    }
+  },
+  {
+    "category": "config_flip",
+    "dataset": "hotpotqa",
+    "query_id": "dev_83",
+    "question": "",
+    "gold_answers": [
+      "Mondelez International, Inc."
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Based on the context, Mondelez International is the American multinational confectionery, food, and beverage company based in Illinois that fits this description. Context [8] states Mondelez International is \"an American multinational confectionery, food, and beverage company based in Illinois\" headquartered in Deerfield, Illinois.",
+        "f1": 0.08695652173913045,
+        "is_em": false,
+        "retrieved_titles": [
+          "Grippo's",
+          "Lincoln Snacks Company",
+          "International Home Foods",
+          "Cheese and crackers",
+          "Eastern Illinois Foodbank"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Based on the retrieved context, Handi-Snacks is mentioned as a mass-produced cheese and crackers snack food [1]. Mondelez International is described as an American multinational confectionery, food, and beverage company based in Illinois [2]. Therefore, the answer is Mondelez International.",
+        "f1": 0.08888888888888889,
+        "is_em": false,
+        "retrieved_titles": [
+          "Cheese and crackers",
+          "Mondelez International",
+          "Lincoln Snacks Company",
+          "Wyandot Snacks",
+          "Snack cake"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Mondelez International",
+        "f1": 0.8,
+        "is_em": false,
+        "retrieved_titles": [
+          "Cheese and crackers",
+          "Mondelez International",
+          "Lincoln Snacks Company",
+          "Wyandot Snacks",
+          "Snack cake"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Based on the context, Handi-Snacks is a snack food product line sold by Mondelez International, which is described as an American multinational confectionery, food, and beverage company based in Illinois.",
+        "f1": 0.1176470588235294,
+        "is_em": false,
+        "retrieved_titles": [
+          "Mondelez International",
+          "Cheese and crackers",
+          "",
+          "",
+          ""
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Based on the context, Mondelez International is described as \"an American multinational confectionery, food, and beverage company based in Illinois\" with headquarters in Deerfield, Illinois. While the context doesn't explicitly state that Mondelez sells Handi-Snacks, it is the company that resulted from the 2012 spin-off of Kraft Foods and would include this product in its portfolio. Answer: Mondelez International",
+        "f1": 0.06153846153846154,
+        "is_em": false,
+        "retrieved_titles": [
+          "Cheese and crackers",
+          "Mondelez International",
+          "Lincoln Snacks Company",
+          "Wyandot Snacks",
+          "Snack cake"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "config_flip",
+    "dataset": "hotpotqa",
+    "query_id": "dev_126",
+    "question": "",
+    "gold_answers": [
+      "Owsley Stanley"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Owsley Stanley (also known as \"Bear\") is the person described. He was the American audio engineer and clandestine chemist who was a key figure in the San Francisco Bay Area hippie movement during the 1960s. While the retrieved context doesn't specifically mention \"Old and in the Way,\" Stanley was the soundman for the Grateful Dead and worked extensively as their sound engineer, frequently recording live tapes and developing their Wall of Sound system.",
+        "f1": 0.052631578947368425,
+        "is_em": false,
+        "retrieved_titles": [
+          "Owsley Stanley",
+          "The Age of Plastic",
+          "",
+          "San Francisco Renaissance",
+          "San Francisco Sound"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Owsley Stanley (also known as Bear) was the American audio engineer and clandestine chemist who was a key figure in the San Francisco Bay Area hippie movement during the 1960s.",
+        "f1": 0.125,
+        "is_em": false,
+        "retrieved_titles": [
+          "Owsley Stanley",
+          "",
+          "History of the hippie movement",
+          "Counterculture of the 1960s",
+          "San Francisco Renaissance"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "The album was recorded by Owsley Stanley (also known as “Bear”).",
+        "f1": 0.3076923076923077,
+        "is_em": false,
+        "retrieved_titles": [
+          "Owsley Stanley",
+          "",
+          "History of the hippie movement",
+          "Counterculture of the 1960s",
+          "San Francisco Renaissance"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Owsley Stanley (also known as Bear) was the American audio engineer and clandestine chemist who was a key figure in the San Francisco Bay Area hippie movement during the 1960s and recorded the album \"Old and in the Way.\" He was the soundman for the Grateful Dead and developed their Wall of Sound system.",
+        "f1": 0.07142857142857142,
+        "is_em": false,
+        "retrieved_titles": [
+          "Owsley Stanley",
+          "",
+          "History of the hippie movement",
+          "Counterculture of the 1960s",
+          "San Francisco Renaissance"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Owsley Stanley (also known as \"Bear\") recorded the album \"Old and in the Way.\" He was the American audio engineer and clandestine chemist who was a key figure in the San Francisco Bay Area hippie movement during the 1960s.",
+        "f1": 0.09756097560975609,
+        "is_em": false,
+        "retrieved_titles": [
+          "Owsley Stanley",
+          "",
+          "History of the hippie movement",
+          "Counterculture of the 1960s",
+          "San Francisco Renaissance"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "partial_answer",
+    "dataset": "hotpotqa",
+    "query_id": "dev_128",
+    "question": "",
+    "gold_answers": [
+      "San Luis Obispo, California"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Bubblegum Alley is located in downtown San Luis Obispo, California, in the 700 block of Higuera Street.",
+        "f1": 0.38095238095238093,
+        "is_em": false,
+        "retrieved_titles": [
+          "Bubblegum Alley",
+          "Gum Wall",
+          "South Beach",
+          "Sound Beach, New York",
+          "Bubble O' Bill"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Bubblegum Alley is located in downtown San Luis Obispo, California, in the 700 block of Higuera Street.",
+        "f1": 0.38095238095238093,
+        "is_em": false,
+        "retrieved_titles": [
+          "Bubblegum Alley",
+          "Gum Wall",
+          "San Luis Obispo, California",
+          "Wrigley Neighborhood, Long Beach, California",
+          "Havertown, Pennsylvania"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Bubblegum Alley is located in downtown San Luis Obispo, California, in the 700 block of Higuera Street.",
+        "f1": 0.38095238095238093,
+        "is_em": false,
+        "retrieved_titles": [
+          "Bubblegum Alley",
+          "Gum Wall",
+          "San Luis Obispo, California",
+          "Wrigley Neighborhood, Long Beach, California",
+          "Havertown, Pennsylvania"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Bubblegum Alley is located in downtown San Luis Obispo, California, specifically in the 700 block of Higuera Street.",
+        "f1": 0.3636363636363636,
+        "is_em": false,
+        "retrieved_titles": [
+          "Bubblegum Alley",
+          "Gum Wall",
+          "San Luis Obispo, California",
+          "Balmy Alley",
+          "Bubble gum"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Bubblegum Alley is located in downtown San Luis Obispo, California, in the 700 block of Higuera Street.",
+        "f1": 0.38095238095238093,
+        "is_em": false,
+        "retrieved_titles": [
+          "Bubblegum Alley",
+          "Gum Wall",
+          "San Luis Obispo, California",
+          "Wrigley Neighborhood, Long Beach, California",
+          "Havertown, Pennsylvania"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "partial_answer",
+    "dataset": "hotpotqa",
+    "query_id": "dev_142",
+    "question": "",
+    "gold_answers": [
+      "\"Teach the Controversy\" campaign"
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Both Truth in Science and the Discovery Institute embrace the \"Teach the Controversy\" campaign.",
+        "f1": 0.4444444444444445,
+        "is_em": false,
+        "retrieved_titles": [
+          "Wedge strategy",
+          "Truth in Science",
+          "Teach the Controversy",
+          "Level of support for evolution",
+          "Science communication"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Both Truth in Science and the Discovery Institute embrace the \"Teach the Controversy\" campaign.",
+        "f1": 0.4444444444444445,
+        "is_em": false,
+        "retrieved_titles": [
+          "Truth in Science",
+          "Wedge strategy",
+          "Teach the Controversy",
+          "Discovery Institute intelligent design campaigns",
+          "Level of support for evolution"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Both Truth in Science and the Discovery Institute embrace the \"Teach the Controversy\" campaign.",
+        "f1": 0.4444444444444445,
+        "is_em": false,
+        "retrieved_titles": [
+          "Truth in Science",
+          "Wedge strategy",
+          "Teach the Controversy",
+          "Discovery Institute intelligent design campaigns",
+          "Level of support for evolution"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Both Truth in Science and the Discovery Institute embrace the \"Teach the Controversy\" campaign.",
+        "f1": 0.4444444444444445,
+        "is_em": false,
+        "retrieved_titles": [
+          "Truth in Science",
+          "Wedge strategy",
+          "Teach the Controversy",
+          "Discovery Institute intelligent design campaigns",
+          "Level of support for evolution"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "They both embrace the “Teach the Controversy” campaign.",
+        "f1": 0.6666666666666666,
+        "is_em": false,
+        "retrieved_titles": [
+          "Truth in Science",
+          "Wedge strategy",
+          "Teach the Controversy",
+          "Discovery Institute intelligent design campaigns",
+          "Level of support for evolution"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  },
+  {
+    "category": "partial_answer",
+    "dataset": "hotpotqa",
+    "query_id": "dev_143",
+    "question": "",
+    "gold_answers": [
+      "Lostprophets disbanded in 2013 after Watkins was charged with sexual offences in late 2012."
+    ],
+    "configs": {
+      "C1_dense_only": {
+        "predicted_answer": "Ian Watkins was the one who was incarcerated, impacting his career with the rock band Lostprophets. In 2013, he was sentenced to 29 years in prison for sexual offences, and the band disbanded that same year.",
+        "f1": 0.4,
+        "is_em": false,
+        "retrieved_titles": [
+          "Stone Temple Pilots",
+          "Steve Miller (musician)",
+          "John Ramsey Miller",
+          "Ian Watkins (Lostprophets)",
+          "Fiona Russell Powell"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C2_dense_rerank": {
+        "predicted_answer": "Ian Watkins was incarcerated. He was sentenced to 29 years in prison in 2013 for sexual offences, which led to his rock band Lostprophets disbanding that same year.",
+        "f1": 0.38095238095238093,
+        "is_em": false,
+        "retrieved_titles": [
+          "Ian Watkins (Lostprophets)",
+          "Stephen Scott (jazz pianist)",
+          "John Ramsey Miller",
+          "Paul Nelson (musician)",
+          "David Sanborn"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C3_dense_rerank_topk5": {
+        "predicted_answer": "Ian Watkins. He was sentenced to 29 years in prison in 2013 for sexual offences, causing Lostprophets to disband.",
+        "f1": 0.48484848484848486,
+        "is_em": false,
+        "retrieved_titles": [
+          "Ian Watkins (Lostprophets)",
+          "Stephen Scott (jazz pianist)",
+          "John Ramsey Miller",
+          "Paul Nelson (musician)",
+          "David Sanborn"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C4_rerank_hyde": {
+        "predicted_answer": "Ian Watkins was incarcerated, impacting his career with the rock band Lostprophets. He was sentenced to 29 years imprisonment in 2013 for sexual offences, causing the band to disband that same year.",
+        "f1": 0.34782608695652173,
+        "is_em": false,
+        "retrieved_titles": [
+          "Ian Watkins (Lostprophets)",
+          "No Devotion",
+          "",
+          "",
+          "Ian \"\"H\"\" Watkins"
+        ],
+        "recall_at_k": 1.0
+      },
+      "C5_rerank_decompose": {
+        "predicted_answer": "Ian Watkins was incarcerated. He was sentenced to 29 years in prison in 2013 for sexual offences, which impacted his career with the rock band Lostprophets, causing the band to disband that same year.",
+        "f1": 0.37499999999999994,
+        "is_em": false,
+        "retrieved_titles": [
+          "Ian Watkins (Lostprophets)",
+          "Stephen Scott (jazz pianist)",
+          "John Ramsey Miller",
+          "Paul Nelson (musician)",
+          "David Sanborn"
+        ],
+        "recall_at_k": 1.0
+      }
+    }
+  }
+]

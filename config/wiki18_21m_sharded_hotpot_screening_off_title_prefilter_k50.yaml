@@ -1,0 +1,54 @@
+experiment:
+  name: "naive-rag-wiki18-21m-sharded-hotpot-screening-off-title-prefilter-k50"
+  seed: 42
+
+retrieval:
+  top_k: 20
+  retrieve_top_k: 100
+  mode: "dense_sharded_title_prefilter"
+  dense_shards_manifest_path: "E:/rag-benchmark-indexes/wiki18_21m_dense_sharded/manifest.json"
+  nprobe: 16
+  dedup_mode: "title"
+  dedup_before_rerank: true
+  title_first_rerank: false
+  title_pool_k: 40
+  max_chunks_per_title: 2
+  min_unique_titles: 6
+  hybrid_alpha: 0.5
+  hybrid_rrf_k: 60
+  hybrid_candidate_k: 50
+  title_prefilter_manifest_path: "E:/rag-benchmark-indexes/wiki18_21m_title_bm25/manifest.json"
+  title_prefilter_k: 50
+  title_prefilter_dense_probe_top_k: 300
+
+generation:
+  mode: "extractive"
+  model: "MiniMax-M2.5"
+  api_base: ""
+  api_base_env: "LLM_BASE_URL"
+  api_key_env: "LLM_API_KEY"
+  system_prompt: "You answer questions based on the retrieved context. Extract the most relevant information from the context to answer the question. Keep the answer short and factual, a few words or one sentence."
+  temperature: 0.0
+  max_output_tokens: 128
+  max_completion_tokens: 512
+  reasoning_split: true
+  timeout_sec: 60
+  input_price_per_1m: 0.0
+  output_price_per_1m: 0.0
+
+query_expansion:
+  mode: "off"
+  datasets: ["hotpotqa"]
+  model: ""
+  api_base: ""
+  api_base_env: ""
+  api_key_env: ""
+  cache_dir: "experiments/cache/query_expansion/hotpot_screening"
+  temperature: 0.0
+  max_completion_tokens: 256
+  include_original_query: true
+  max_queries: 3
+  timeout_sec: 60
+
+evaluation:
+  recall_k: 20

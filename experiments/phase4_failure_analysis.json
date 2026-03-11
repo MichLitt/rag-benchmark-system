@@ -1,0 +1,3236 @@
+{
+  "results": {
+    "C1_dense_only|hotpotqa": {
+      "classifier": "hotpotqa",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 15,
+          "pct": 7.5
+        },
+        "no_gold_in_raw": {
+          "count": 53,
+          "pct": 26.5
+        },
+        "only_one_gold_in_raw": {
+          "count": 91,
+          "pct": 45.5
+        },
+        "both_gold_in_raw_but_lost_after_dedup": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "both_gold_after_dedup_but_lost_after_rerank": {
+          "count": 10,
+          "pct": 5.0
+        },
+        "both_gold_in_final": {
+          "count": 31,
+          "pct": 15.5
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C1_dense_only|nq": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 12,
+          "pct": 6.0
+        },
+        "retrieval_failure": {
+          "count": 188,
+          "pct": 94.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C1_dense_only|triviaqa": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 30,
+          "pct": 15.0
+        },
+        "retrieval_failure": {
+          "count": 170,
+          "pct": 85.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C2_dense_rerank|hotpotqa": {
+      "classifier": "hotpotqa",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 24,
+          "pct": 12.0
+        },
+        "no_gold_in_raw": {
+          "count": 52,
+          "pct": 26.0
+        },
+        "only_one_gold_in_raw": {
+          "count": 85,
+          "pct": 42.5
+        },
+        "both_gold_in_raw_but_lost_after_dedup": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "both_gold_after_dedup_but_lost_after_rerank": {
+          "count": 2,
+          "pct": 1.0
+        },
+        "both_gold_in_final": {
+          "count": 37,
+          "pct": 18.5
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C2_dense_rerank|nq": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 10,
+          "pct": 5.0
+        },
+        "retrieval_failure": {
+          "count": 190,
+          "pct": 95.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C2_dense_rerank|triviaqa": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 47,
+          "pct": 23.5
+        },
+        "retrieval_failure": {
+          "count": 153,
+          "pct": 76.5
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C3_dense_rerank_topk5|hotpotqa": {
+      "classifier": "hotpotqa",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 27,
+          "pct": 13.5
+        },
+        "no_gold_in_raw": {
+          "count": 51,
+          "pct": 25.5
+        },
+        "only_one_gold_in_raw": {
+          "count": 83,
+          "pct": 41.5
+        },
+        "both_gold_in_raw_but_lost_after_dedup": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "both_gold_after_dedup_but_lost_after_rerank": {
+          "count": 12,
+          "pct": 6.0
+        },
+        "both_gold_in_final": {
+          "count": 27,
+          "pct": 13.5
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C3_dense_rerank_topk5|nq": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 12,
+          "pct": 6.0
+        },
+        "retrieval_failure": {
+          "count": 188,
+          "pct": 94.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C3_dense_rerank_topk5|triviaqa": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 40,
+          "pct": 20.0
+        },
+        "retrieval_failure": {
+          "count": 160,
+          "pct": 80.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C4_rerank_hyde|hotpotqa": {
+      "classifier": "hotpotqa",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 27,
+          "pct": 13.5
+        },
+        "no_gold_in_raw": {
+          "count": 49,
+          "pct": 24.5
+        },
+        "only_one_gold_in_raw": {
+          "count": 82,
+          "pct": 41.0
+        },
+        "both_gold_in_raw_but_lost_after_dedup": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "both_gold_after_dedup_but_lost_after_rerank": {
+          "count": 1,
+          "pct": 0.5
+        },
+        "both_gold_in_final": {
+          "count": 41,
+          "pct": 20.5
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C4_rerank_hyde|nq": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 12,
+          "pct": 6.0
+        },
+        "retrieval_failure": {
+          "count": 188,
+          "pct": 94.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C4_rerank_hyde|triviaqa": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 35,
+          "pct": 17.5
+        },
+        "retrieval_failure": {
+          "count": 165,
+          "pct": 82.5
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C5_rerank_decompose|hotpotqa": {
+      "classifier": "hotpotqa",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 21,
+          "pct": 10.5
+        },
+        "no_gold_in_raw": {
+          "count": 53,
+          "pct": 26.5
+        },
+        "only_one_gold_in_raw": {
+          "count": 85,
+          "pct": 42.5
+        },
+        "both_gold_in_raw_but_lost_after_dedup": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "both_gold_after_dedup_but_lost_after_rerank": {
+          "count": 1,
+          "pct": 0.5
+        },
+        "both_gold_in_final": {
+          "count": 40,
+          "pct": 20.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C5_rerank_decompose|nq": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 16,
+          "pct": 8.0
+        },
+        "retrieval_failure": {
+          "count": 184,
+          "pct": 92.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "C5_rerank_decompose|triviaqa": {
+      "classifier": "generic",
+      "summary": {
+        "total": 200,
+        "correct": {
+          "count": 38,
+          "pct": 19.0
+        },
+        "retrieval_failure": {
+          "count": 162,
+          "pct": 81.0
+        },
+        "generation_failure": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    }
+  },
+  "flips": [
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_104",
+      "correct_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "both_gold_in_final",
+        "C3_dense_rerank_topk5": "both_gold_in_final",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_105",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_11",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_110",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_after_dedup_but_lost_after_rerank",
+        "C2_dense_rerank": "both_gold_in_final",
+        "C3_dense_rerank_topk5": "both_gold_after_dedup_but_lost_after_rerank",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_123",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "no_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "no_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "no_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_126",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_130",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "both_gold_in_final",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "both_gold_in_final",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_132",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_136",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_in_final",
+        "C2_dense_rerank": "both_gold_in_final",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_14",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "no_gold_in_raw",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_151",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_in_final",
+        "C2_dense_rerank": "both_gold_in_final",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_155",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_161",
+      "correct_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_after_dedup_but_lost_after_rerank",
+        "C2_dense_rerank": "both_gold_after_dedup_but_lost_after_rerank",
+        "C3_dense_rerank_topk5": "both_gold_after_dedup_but_lost_after_rerank",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_163",
+      "correct_in": [
+        "C1_dense_only"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_168",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "no_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_170",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_173",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "no_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "no_gold_in_raw",
+        "C5_rerank_decompose": "no_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_179",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_18",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_182",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "both_gold_in_final",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_19",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "no_gold_in_raw",
+        "C2_dense_rerank": "no_gold_in_raw",
+        "C3_dense_rerank_topk5": "no_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "no_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_194",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_in_final",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_20",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_28",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_34",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_in_final",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "both_gold_in_final",
+        "C4_rerank_hyde": "both_gold_in_final",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_36",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_37",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_39",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_4",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_in_final",
+        "C2_dense_rerank": "both_gold_in_final",
+        "C3_dense_rerank_topk5": "both_gold_in_final",
+        "C4_rerank_hyde": "both_gold_in_final",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_40",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_5",
+      "correct_in": [
+        "C1_dense_only",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "no_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_51",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "no_gold_in_raw",
+        "C2_dense_rerank": "no_gold_in_raw",
+        "C3_dense_rerank_topk5": "no_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "no_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_52",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "no_gold_in_raw",
+        "C2_dense_rerank": "no_gold_in_raw",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "no_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_65",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_in_final",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "both_gold_in_final"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_66",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_69",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_73",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "only_one_gold_in_raw",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_75",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "both_gold_in_final",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "both_gold_in_final",
+        "C4_rerank_hyde": "both_gold_in_final",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_81",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "both_gold_in_final",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_83",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "only_one_gold_in_raw",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_85",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "only_one_gold_in_raw",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_91",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_94",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "only_one_gold_in_raw"
+      }
+    },
+    {
+      "dataset": "hotpotqa",
+      "query_id": "dev_95",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only"
+      ],
+      "modes": {
+        "C1_dense_only": "only_one_gold_in_raw",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_0",
+      "correct_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_111",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_12",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_125",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_131",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_150",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_152",
+      "correct_in": [
+        "C1_dense_only"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_155",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_168",
+      "correct_in": [
+        "C1_dense_only",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_172",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_175",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_183",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_186",
+      "correct_in": [
+        "C1_dense_only",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_197",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_21",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_24",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_34",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_35",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_36",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_37",
+      "correct_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_52",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_54",
+      "correct_in": [
+        "C1_dense_only",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_56",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_62",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_68",
+      "correct_in": [
+        "C1_dense_only"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_72",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_76",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_78",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_81",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_84",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_88",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "nq",
+      "query_id": "test_95",
+      "correct_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_0",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_100",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_102",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_106",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_107",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_11",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_111",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_115",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_116",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_118",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_119",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_122",
+      "correct_in": [
+        "C1_dense_only"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_123",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_124",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_128",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_129",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_130",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_132",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_133",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_134",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_137",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_141",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_142",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_143",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_144",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_145",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_152",
+      "correct_in": [
+        "C1_dense_only"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_157",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_163",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_164",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_168",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_176",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_18",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_19",
+      "correct_in": [
+        "C1_dense_only"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_192",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_194",
+      "correct_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_195",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_197",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_2",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_22",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_27",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_28",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_3",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_30",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_33",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_35",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_38",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_41",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_42",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_45",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_49",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_53",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_6",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_60",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_61",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_66",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_67",
+      "correct_in": [
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_68",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_69",
+      "correct_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_73",
+      "correct_in": [
+        "C1_dense_only",
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_74",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5"
+      ],
+      "failed_in": [
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_75",
+      "correct_in": [
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_78",
+      "correct_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C2_dense_rerank"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "correct",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_79",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_9",
+      "correct_in": [
+        "C2_dense_rerank",
+        "C5_rerank_decompose"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "correct"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_90",
+      "correct_in": [
+        "C1_dense_only",
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "correct",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_91",
+      "correct_in": [
+        "C4_rerank_hyde"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C2_dense_rerank",
+        "C3_dense_rerank_topk5",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "retrieval_failure",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "correct",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "query_id": "test_98",
+      "correct_in": [
+        "C2_dense_rerank"
+      ],
+      "failed_in": [
+        "C1_dense_only",
+        "C3_dense_rerank_topk5",
+        "C4_rerank_hyde",
+        "C5_rerank_decompose"
+      ],
+      "modes": {
+        "C1_dense_only": "retrieval_failure",
+        "C2_dense_rerank": "correct",
+        "C3_dense_rerank_topk5": "retrieval_failure",
+        "C4_rerank_hyde": "retrieval_failure",
+        "C5_rerank_decompose": "retrieval_failure"
+      }
+    }
+  ]
+}

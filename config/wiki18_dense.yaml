@@ -1,0 +1,47 @@
+experiment:
+  name: "naive-rag-wiki18-dense"
+  seed: 42
+
+retrieval:
+  top_k: 5
+  mode: "dense"  # keyword | bm25 | dense | hybrid
+  docstore_path: "data/indexes/wiki18_100w_dense/docstore.jsonl"
+  bm25_path: "data/indexes/wiki18_100w_dense/bm25.pkl"
+  faiss_index_path: "data/indexes/wiki18_100w_dense/faiss.index"
+  dense_config_path: "data/indexes/wiki18_100w_dense/dense_config.json"
+  hybrid_alpha: 0.5
+  hybrid_rrf_k: 60
+  hybrid_candidate_k: 50
+  dedup_mode: "off"  # off | title | doc_id
+  dedup_before_rerank: false
+
+generation:
+  mode: "extractive"  # switch to llm when ready for formal generation
+  model: "MiniMax-M2.5"
+  api_base: ""
+  api_base_env: "LLM_BASE_URL"
+  api_key_env: "LLM_API_KEY"
+  system_prompt: "You answer questions based on the retrieved context. Extract the most relevant information from the context to answer the question. Keep the answer short and factual — a few words or one sentence."
+  temperature: 0.0
+  max_output_tokens: 128
+  max_completion_tokens: 512
+  reasoning_split: true
+  timeout_sec: 60
+  input_price_per_1m: 0.0
+  output_price_per_1m: 0.0
+
+query_expansion:
+  mode: "off"  # off | auto | hyde | hotpot_hyde | hotpot_decompose
+  datasets: []
+  model: ""
+  api_base: ""
+  api_base_env: ""
+  api_key_env: ""
+  temperature: 0.0
+  max_completion_tokens: 256
+  include_original_query: true
+  max_queries: 3
+  timeout_sec: 60
+
+evaluation:
+  recall_k: 5
