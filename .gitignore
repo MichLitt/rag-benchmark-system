@@ -25,3 +25,7 @@ experiments/runs/
 Thumbs.db
 .idea/
 .vscode/
+
+# Planning / scratch files
+RAG_Benchmark_Execution_Plan_*.md
+.claude/

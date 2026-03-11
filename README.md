@@ -1,4 +1,4 @@
-# RAG Benchmark Study
+# RAG Benchmark System
 
 Modular RAG benchmark system with systematic component-level evaluation on standard QA benchmarks. Evaluates retrieval strategies across **accuracy, latency, and cost** on HotpotQA, Natural Questions, and TriviaQA.
 

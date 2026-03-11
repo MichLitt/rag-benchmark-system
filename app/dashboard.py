@@ -1,4 +1,4 @@
-"""RAG Benchmark Study — Experiment Dashboard.
+"""RAG Benchmark System — Experiment Dashboard.
 
 Streamlit app that displays pre-computed experiment results, failure
 analysis, and case studies from the Phase 4 matrix.
@@ -207,7 +207,7 @@ def main() -> None:
         page_title="RAG Benchmark Dashboard",
         layout="wide",
     )
-    st.title("RAG Benchmark Study — Experiment Dashboard")
+    st.title("RAG Benchmark System — Experiment Dashboard")
 
     bundle = load_bundle()
     if not bundle:
