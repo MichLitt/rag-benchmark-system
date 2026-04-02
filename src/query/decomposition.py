@@ -13,6 +13,9 @@ from src.generation.openai_compatible import (
     _is_minimax_model,
     _strip_think_blocks,
 )
+from src.logging_utils import get_logger
+
+logger = get_logger(__name__)
 
 
 DEFAULT_DECOMPOSITION_SYSTEM_PROMPT = (
@@ -410,6 +413,7 @@ class HotpotDecomposeExpander:
                 payload = json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
+            logger.warning("Decomposition HTTP error %s: %.200s", exc.code, detail)
             self._set_last_metadata(
                 question=question,
                 cache_hit=False,
@@ -420,6 +424,7 @@ class HotpotDecomposeExpander:
             self._write_failure_diagnostics()
             raise RuntimeError(f"Decomposition request failed with HTTP {exc.code}: {detail}") from exc
         except urllib.error.URLError as exc:
+            logger.warning("Decomposition URL error: %s", exc.reason)
             self._set_last_metadata(
                 question=question,
                 cache_hit=False,
@@ -459,6 +464,11 @@ class HotpotDecomposeExpander:
 
         if not queries:
             fallback_queries = self._fallback_queries(question)
+            logger.warning(
+                "Decomposition fallback for '%.80s' (reason=%s)",
+                question,
+                failure_reason or "all_candidates_filtered",
+            )
             self._set_last_metadata(
                 question=question,
                 cache_hit=False,

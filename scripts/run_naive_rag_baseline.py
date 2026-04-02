@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.config import load_yaml_config
+from src.logging_utils import configure_logging
 from src.flashrag_loader import load_flashrag_qa
 from src.generation import build_generator
 from src.io_utils import append_run_result_jsonl, ensure_dir, save_json, save_run_results
@@ -207,6 +208,19 @@ def parse_args() -> argparse.Namespace:
         "--continue-on-generation-error",
         action="store_true",
         help="Record generation errors in outputs and continue the run instead of aborting the batch.",
+    )
+    parser.add_argument(
+        "--log-level",
+        type=str,
+        default="INFO",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        help="Logging level (default: INFO).",
+    )
+    parser.add_argument(
+        "--log-file",
+        type=str,
+        default=None,
+        help="Optional path to write log output in addition to stderr.",
     )
     parser.add_argument(
         "--progress-every",
@@ -499,6 +513,7 @@ def _make_progress_callback(
 
 def main() -> None:
     args = parse_args()
+    configure_logging(args.log_level, args.log_file)
     cfg = load_yaml_config(args.config)
     cfg.setdefault("retrieval", {})
     cfg.setdefault("generation", {})

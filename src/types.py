@@ -67,3 +67,5 @@ class RunExampleResult:
     first_gold_found: bool = False
     second_gold_found: bool = False
     retrieval_failure_bucket: str = ""
+    retrieved_texts: list[str] = field(default_factory=list)
+    question: str = ""

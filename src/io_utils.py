@@ -19,10 +19,12 @@ def save_json(path: str | Path, payload: dict[str, Any]) -> None:
 def run_result_to_dict(r: RunExampleResult) -> dict[str, Any]:
     return {
         "query_id": r.query_id,
+        "question": r.question,
         "predicted_answer": r.predicted_answer,
         "gold_answers": r.gold_answers,
         "retrieved_doc_ids": r.retrieved_doc_ids,
         "retrieved_titles": r.retrieved_titles,
+        "retrieved_texts": r.retrieved_texts,
         "unique_retrieved_titles": r.unique_retrieved_titles,
         "retrieval_latency_ms": r.retrieval_latency_ms,
         "rerank_latency_ms": r.rerank_latency_ms,

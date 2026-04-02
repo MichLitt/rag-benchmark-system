@@ -2,6 +2,12 @@ import time
 from statistics import mean
 from typing import Callable, Protocol
 
+import tiktoken
+
+from src.logging_utils import get_logger
+
+logger = get_logger(__name__)
+
 from src.evaluation.metrics import exact_match_any, max_f1_score, recall_at_k
 from src.generation.base import GeneratorLike
 from src.generation.extractive import ExtractiveGenerator
@@ -43,8 +49,11 @@ def _normalize(text: str) -> str:
     return " ".join(text.lower().strip().split())
 
 
+_TOKENIZER = tiktoken.get_encoding("cl100k_base")
+
+
 def _estimate_tokens(text: str) -> int:
-    return len(_normalize(text).split())
+    return len(_TOKENIZER.encode(_normalize(text)))
 
 
 def _answer_presence_recall_at_k(docs: list[Document], answers: list[str], k: int) -> float:
@@ -265,6 +274,7 @@ def run_naive_rag(
                 query_expansion_cache_key = str(expansion_meta.get("cache_key", "")).strip()
                 query_expansion_used_fallback = bool(expansion_meta.get("used_fallback", False))
             except Exception as exc:
+                logger.warning("Query expansion failed for %s: %s", sample.query_id, exc)
                 query_expansion_errors += 1
                 query_expansion_error = f"{type(exc).__name__}: {exc}"
                 expansion_meta = _query_expansion_metadata(query_expander)
@@ -345,6 +355,7 @@ def run_naive_rag(
         except Exception as exc:
             if not continue_on_generation_error:
                 raise
+            logger.warning("Generation error for %s: %s", sample.query_id, exc)
             generation_errors += 1
             generation_error = f"{type(exc).__name__}: {exc}"
             generation_result = None
@@ -370,10 +381,12 @@ def run_naive_rag(
         results.append(
             RunExampleResult(
                 query_id=sample.query_id,
+                question=sample.question,
                 predicted_answer=predicted,
                 gold_answers=sample.answers,
                 retrieved_doc_ids=[d.doc_id for d in docs],
                 retrieved_titles=[d.title for d in docs],
+                retrieved_texts=[d.text for d in docs],
                 unique_retrieved_titles=retrieval_diagnostics.unique_titles_in_final_docs,
                 retrieval_latency_ms=retrieval_latency_ms,
                 rerank_latency_ms=rerank_latency_ms,

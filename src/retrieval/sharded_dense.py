@@ -10,8 +10,11 @@ import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
+from src.logging_utils import get_logger
 from src.retrieval.docstore import LazyDocstore, load_docstore
 from src.types import Document
+
+logger = get_logger(__name__)
 
 
 def _normalize_index_type(value: str | None) -> str:
@@ -77,7 +80,12 @@ class ShardedFaissDenseRetriever:
         self._nprobe = int(nprobe) if nprobe is not None else (int(default_nprobe) if default_nprobe else None)
         self._shards: list[_DenseShard] = []
 
-        for shard_cfg in manifest.get("shards", []):
+        all_shards = manifest.get("shards", [])
+        logger.debug("Loading %d shards from %s", len(all_shards), manifest_file)
+        for shard_idx, shard_cfg in enumerate(all_shards):
+            logger.debug(
+                "Loading shard %d/%d: %s", shard_idx + 1, len(all_shards), shard_cfg["faiss_index_path"]
+            )
             index = faiss.read_index(str(shard_cfg["faiss_index_path"]))
             shard_index_type = _normalize_index_type(
                 shard_cfg.get("index_type") or manifest.get("index_type")

@@ -10,6 +10,9 @@ from src.generation.openai_compatible import (
     _is_minimax_model,
     _strip_think_blocks,
 )
+from src.logging_utils import get_logger
+
+logger = get_logger(__name__)
 
 
 DEFAULT_HYDE_SYSTEM_PROMPT = (
@@ -107,8 +110,10 @@ class HyDEExpander:
                 payload = json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
+            logger.warning("HyDE HTTP error %s: %.200s", exc.code, detail)
             raise RuntimeError(f"HyDE request failed with HTTP {exc.code}: {detail}") from exc
         except urllib.error.URLError as exc:
+            logger.warning("HyDE URL error: %s", exc.reason)
             raise RuntimeError(f"HyDE request failed: {exc.reason}") from exc
 
         choices = payload.get("choices", [])

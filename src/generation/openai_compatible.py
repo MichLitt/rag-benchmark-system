@@ -7,7 +7,10 @@ import urllib.request
 from typing import Any
 
 from src.generation.base import GenerationResult
+from src.logging_utils import get_logger
 from src.types import Document
+
+logger = get_logger(__name__)
 
 
 DEFAULT_SYSTEM_PROMPT = (
@@ -177,8 +180,10 @@ class OpenAICompatibleGenerator:
                 payload = json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
+            logger.warning("LLM HTTP error %s: %.200s", exc.code, detail)
             raise RuntimeError(f"LLM request failed with HTTP {exc.code}: {detail}") from exc
         except urllib.error.URLError as exc:
+            logger.warning("LLM URL error: %s", exc.reason)
             raise RuntimeError(f"LLM request failed: {exc.reason}") from exc
 
         choices = payload.get("choices", [])
