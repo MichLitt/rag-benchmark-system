@@ -71,6 +71,32 @@ class CrossEncoderReranker:
         self._retriever_rank_weight = retriever_rank_weight
         self._rank_fusion_k = rank_fusion_k
 
+    def rerank_with_scores(
+        self, query: str, docs: list[Document], top_k: int
+    ) -> tuple[list[Document], list[float]]:
+        """Like :meth:`rerank` but also returns the cross-encoder scores.
+
+        Returns:
+            A ``(reranked_docs, scores)`` tuple where *scores* is a parallel
+            list of raw cross-encoder logits (not normalised) for the API layer
+            to forward as ``ScoredDocument.score``.
+        """
+        if top_k <= 0 or not docs:
+            return [], []
+        pairs = [(query, f"{doc.title}\n{doc.text}".strip()) for doc in docs]
+        raw_scores = self._model.predict(
+            pairs,
+            batch_size=self._batch_size,
+            show_progress_bar=False,
+            convert_to_numpy=True,
+        )
+        scores_arr = np.asarray(raw_scores, dtype=np.float32)
+        k = min(top_k, len(docs))
+        order = np.argsort(-scores_arr, kind="stable")[:k]
+        reranked_docs = [docs[int(i)] for i in order]
+        reranked_scores = [float(scores_arr[int(i)]) for i in order]
+        return reranked_docs, reranked_scores
+
     def rerank(self, query: str, docs: list[Document], top_k: int) -> list[Document]:
         if top_k <= 0 or not docs:
             return []

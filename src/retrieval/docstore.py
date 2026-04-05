@@ -12,7 +12,16 @@ def save_docstore(path: str | Path, docs: list[Document]) -> None:
     p.parent.mkdir(parents=True, exist_ok=True)
     with p.open("w", encoding="utf-8") as f:
         for doc in docs:
-            row = {"doc_id": doc.doc_id, "title": doc.title, "text": doc.text}
+            row = {
+                "doc_id": doc.doc_id,
+                "title": doc.title,
+                "text": doc.text,
+                "page_start": doc.page_start,
+                "page_end": doc.page_end,
+                "section": doc.section,
+                "source": doc.source,
+                "extra_metadata": doc.extra_metadata,
+            }
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
@@ -29,6 +38,11 @@ def load_docstore(path: str | Path) -> list[Document]:
                     doc_id=str(row.get("doc_id", "")),
                     title=str(row.get("title", "")),
                     text=str(row.get("text", "")),
+                    page_start=row.get("page_start"),
+                    page_end=row.get("page_end"),
+                    section=row.get("section"),
+                    source=row.get("source"),
+                    extra_metadata=row.get("extra_metadata") or {},
                 )
             )
     return docs
@@ -81,24 +95,35 @@ class LazyDocstore:
         self._doc_file.close()
         self._offsets_file.close()
 
-    def _read_offset(self, index: int) -> int:
+    def get(self, index: int) -> Document:
+        """Return the Document at *index* using per-request file opens (thread-safe).
+
+        Each call opens both the offsets file and the docstore file independently,
+        so concurrent requests from multiple threads never share file-pointer state.
+        """
         if index < 0 or index >= self._num_docs:
             raise IndexError(index)
-        self._offsets_file.seek(index * 8)
-        raw = self._offsets_file.read(8)
-        if len(raw) != 8:
+        # Read byte offset from the sidecar (per-request, no shared state)
+        with self._offsets_path.open("rb") as off_f:
+            off_f.seek(index * 8)
+            raw_off = off_f.read(8)
+        if len(raw_off) != 8:
             raise IndexError(index)
-        return int(struct.unpack("<Q", raw)[0])
-
-    def get(self, index: int) -> Document:
-        offset = self._read_offset(index)
-        self._doc_file.seek(offset)
-        raw = self._doc_file.readline()
-        if not raw:
+        offset = int(struct.unpack("<Q", raw_off)[0])
+        # Read document row (per-request, no shared state)
+        with self._path.open("rb") as doc_f:
+            doc_f.seek(offset)
+            raw_line = doc_f.readline()
+        if not raw_line:
             raise IndexError(index)
-        row = json.loads(raw.decode("utf-8"))
+        row = json.loads(raw_line.decode("utf-8"))
         return Document(
             doc_id=str(row.get("doc_id", "")),
             title=str(row.get("title", "")),
             text=str(row.get("text", "")),
+            page_start=row.get("page_start"),
+            page_end=row.get("page_end"),
+            section=row.get("section"),
+            source=row.get("source"),
+            extra_metadata=row.get("extra_metadata") or {},
         )

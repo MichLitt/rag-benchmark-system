@@ -133,7 +133,16 @@ def _iter_doc_batches(
 def _write_doc_row(doc_file, offsets_file, doc: Document) -> None:
     raw = (
         json.dumps(
-            {"doc_id": doc.doc_id, "title": doc.title, "text": doc.text},
+            {
+                "doc_id": doc.doc_id,
+                "title": doc.title,
+                "text": doc.text,
+                "page_start": doc.page_start,
+                "page_end": doc.page_end,
+                "section": doc.section,
+                "source": doc.source,
+                "extra_metadata": doc.extra_metadata,
+            },
             ensure_ascii=False,
         )
         + "\n"

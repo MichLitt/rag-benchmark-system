@@ -47,7 +47,16 @@ def _row_to_document(row: dict) -> Document:
         if parsed_text:
             text = parsed_text
 
-    return Document(doc_id=doc_id, title=title, text=text)
+    return Document(
+        doc_id=doc_id,
+        title=title,
+        text=text,
+        page_start=row.get("page_start"),
+        page_end=row.get("page_end"),
+        section=row.get("section"),
+        source=row.get("source"),
+        extra_metadata=row.get("extra_metadata") or {},
+    )
 
 
 def iter_corpus_documents(path: str | Path) -> Iterator[Document]:
