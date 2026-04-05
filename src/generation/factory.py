@@ -5,6 +5,7 @@ from typing import Any
 
 from dotenv import load_dotenv
 
+from src.generation.anthropic_compatible import AnthropicCompatibleGenerator
 from src.generation.base import GeneratorLike
 from src.generation.extractive import ExtractiveGenerator
 from src.generation.openai_compatible import DEFAULT_SYSTEM_PROMPT, OpenAICompatibleGenerator
@@ -17,6 +18,33 @@ def build_generator(cfg: dict[str, Any]) -> GeneratorLike:
 
     if mode == "extractive":
         return ExtractiveGenerator()
+
+    if mode in {"anthropic", "anthropic_compatible"}:
+        api_key_env = str(generation_cfg.get("api_key_env", "ANTHROPIC_API_KEY")).strip()
+        api_key = os.getenv(api_key_env, "").strip()
+        if not api_key:
+            raise ValueError(
+                f"Environment variable {api_key_env} is required for Anthropic generation."
+            )
+        api_base = str(generation_cfg.get("api_base", "")).strip()
+        api_base_env = str(generation_cfg.get("api_base_env", "")).strip()
+        if not api_base and api_base_env:
+            api_base = os.getenv(api_base_env, "").strip()
+        model = str(generation_cfg.get("model", "")).strip()
+        if not model:
+            raise ValueError("generation.model must be set when generation.mode uses an LLM.")
+        max_output_tokens = int(generation_cfg.get("max_output_tokens", 128))
+        return AnthropicCompatibleGenerator(
+            model=model,
+            api_key=api_key,
+            api_base=api_base or None,
+            system_prompt=str(generation_cfg.get("system_prompt", DEFAULT_SYSTEM_PROMPT)),
+            temperature=float(generation_cfg.get("temperature", 0.0)),
+            max_output_tokens=max_output_tokens,
+            timeout_sec=int(generation_cfg.get("timeout_sec", 60)),
+            input_price_per_1m=float(generation_cfg.get("input_price_per_1m", 0.0)),
+            output_price_per_1m=float(generation_cfg.get("output_price_per_1m", 0.0)),
+        )
 
     if mode not in {"llm", "openai_compatible"}:
         raise ValueError(f"Unsupported generation mode: {mode}")

@@ -1,0 +1,61 @@
+# Example config for GLM-5 (Zhipu AI) via OpenAI-compatible API.
+#
+# Prerequisites (.env or environment):
+#   GLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
+#   GLM_API_KEY=your_glm_key_here
+#
+# Usage:
+#   uv run python scripts/run_naive_rag_baseline.py \
+#       --config config/glm5_example.yaml \
+#       --retriever dense_sharded \
+#       ...
+
+experiment:
+  name: "glm5-rag"
+  seed: 42
+
+retrieval:
+  top_k: 5
+  retrieve_top_k: 20
+  mode: "keyword"
+  docstore_path: "data/indexes/wiki_passages/docstore.jsonl"
+  bm25_path: "data/indexes/wiki_passages/bm25.pkl"
+  faiss_index_path: "data/indexes/wiki_passages/faiss.index"
+  dense_config_path: "data/indexes/wiki_passages/dense_config.json"
+  hybrid_alpha: 0.5
+  hybrid_rrf_k: 60
+  hybrid_candidate_k: 50
+  dedup_mode: "off"
+  dedup_before_rerank: false
+  title_first_rerank: false
+  title_pool_k: 40
+  max_chunks_per_title: 2
+  min_unique_titles: 6
+
+generation:
+  mode: "openai_compatible"        # GLM-5 uses the OpenAI-compatible endpoint
+  model: "glm-5"
+  api_base_env: "GLM_BASE_URL"     # set GLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
+  api_key_env: "GLM_API_KEY"
+  temperature: 0.0
+  max_output_tokens: 128
+  reasoning_split: "false"         # GLM-5 does not use reasoning_split
+  timeout_sec: 60
+  input_price_per_1m: 0.0
+  output_price_per_1m: 0.0
+
+query_expansion:
+  mode: "off"
+  datasets: []
+  model: ""
+  api_base: ""
+  api_base_env: ""
+  api_key_env: ""
+  temperature: 0.0
+  max_completion_tokens: 256
+  include_original_query: true
+  max_queries: 3
+  timeout_sec: 60
+
+evaluation:
+  recall_k: 5

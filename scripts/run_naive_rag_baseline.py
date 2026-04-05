@@ -47,7 +47,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-k", type=int, default=None)
     parser.add_argument(
         "--generator-mode",
-        choices=["extractive", "llm", "openai_compatible"],
+        choices=["extractive", "llm", "openai_compatible", "anthropic", "anthropic_compatible"],
         default=None,
         help="Generation backend. Defaults to config value.",
     )
