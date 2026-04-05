@@ -4,9 +4,10 @@ from typing import Any
 
 from src.retrieval.bm25 import BM25Retriever
 from src.retrieval.faiss_dense import FaissDenseRetriever
-from src.retrieval.hybrid import HybridRetriever
+from src.retrieval.hybrid import DenseSpladeHybridRetriever, HybridRetriever
 from src.retrieval.keyword import KeywordRetriever
 from src.retrieval.sharded_dense import ShardedFaissDenseRetriever
+from src.retrieval.splade import SPLADERetriever, SPLADE_MODEL_NAME
 from src.retrieval.title_prefilter import DenseShardedTitlePrefilterRetriever
 from src.types import Document
 
@@ -81,6 +82,37 @@ def build_retriever(cfg: dict[str, Any], corpus: list[Document]):
         return HybridRetriever(
             bm25_retriever=bm25,
             dense_retriever=dense,
+            alpha=float(retrieval_cfg.get("hybrid_alpha", 0.5)),
+            rrf_k=int(retrieval_cfg.get("hybrid_rrf_k", 60)),
+            candidate_k=int(retrieval_cfg.get("hybrid_candidate_k", 50)),
+        )
+
+    if mode == "splade":
+        return SPLADERetriever.from_disk(
+            splade_index_path=retrieval_cfg["splade_index_path"],
+            docstore_path=retrieval_cfg["docstore_path"],
+            splade_config_path=retrieval_cfg["splade_config_path"],
+            model_name=str(retrieval_cfg.get("model_name", SPLADE_MODEL_NAME)),
+            device=retrieval_cfg.get("device"),
+        )
+
+    if mode == "dense_splade_hybrid":
+        dense = FaissDenseRetriever(
+            faiss_index_path=retrieval_cfg["faiss_index_path"],
+            docstore_path=retrieval_cfg["docstore_path"],
+            dense_config_path=retrieval_cfg["dense_config_path"],
+            docstore_offsets_path=retrieval_cfg.get("docstore_offsets_path"),
+        )
+        splade = SPLADERetriever.from_disk(
+            splade_index_path=retrieval_cfg["splade_index_path"],
+            docstore_path=retrieval_cfg["docstore_path"],
+            splade_config_path=retrieval_cfg["splade_config_path"],
+            model_name=str(retrieval_cfg.get("model_name", SPLADE_MODEL_NAME)),
+            device=retrieval_cfg.get("device"),
+        )
+        return DenseSpladeHybridRetriever(
+            dense_retriever=dense,
+            splade_retriever=splade,
             alpha=float(retrieval_cfg.get("hybrid_alpha", 0.5)),
             rrf_k=int(retrieval_cfg.get("hybrid_rrf_k", 60)),
             candidate_k=int(retrieval_cfg.get("hybrid_candidate_k", 50)),
