@@ -91,3 +91,7 @@ class RunExampleResult:
     answer_attribution_rate: float | None = None
     supporting_passage_hit: float | None = None
     page_grounding_accuracy: float | None = None
+    # C2 bad-case traceability fields
+    failure_stage: str = ""   # e.g. "retrieval", "generation", "rerank"
+    failure_detail: str = ""  # free-text error description
+    run_id: str = ""          # identifier of the originating eval run

@@ -14,6 +14,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.config import load_yaml_config
+from src.evalops.adapter import build_eval_run_report
+from src.evalops.client import EvalOpsClient
 from src.logging_utils import configure_logging
 from src.flashrag_loader import load_flashrag_qa
 from src.generation import build_generator
@@ -602,6 +604,7 @@ def main() -> None:
         alpha_values = [None]
 
     run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+    _evalops_client = EvalOpsClient.from_env()
     run_name = f"naive_baseline_{retriever_mode}_{run_id}"
     is_hybrid_sweep = retriever_mode == "hybrid" and len(alpha_values) > 1
     if is_hybrid_sweep:
@@ -833,8 +836,21 @@ def main() -> None:
                 all_metrics[dataset_name] = metrics
 
             save_json(dataset_dir / "metrics.json", metrics)
+            # Stamp run_id for per-example traceability before serializing
+            for r in results:
+                r.run_id = out_dir.name
             save_run_results(dataset_dir / "predictions.json", results)
             write_progress_completed(results)
+            # EvalOps: submit run report (fails silently if endpoint not configured)
+            _evalops_client.submit(
+                build_eval_run_report(
+                    out_dir.name,
+                    metrics,
+                    results,
+                    dataset=dataset_name,
+                    retriever_mode=retriever_mode,
+                )
+            )
             print(json.dumps(metrics, ensure_ascii=False, indent=2))
 
     save_json(out_dir / "summary_metrics.json", all_metrics)

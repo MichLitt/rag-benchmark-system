@@ -42,6 +42,10 @@ METRIC_COLUMNS = [
     "UseReranker",
     "QueryExpansionMode",
     "GeneratorModel",
+    # A3 NLI citation metrics (empty for datasets that don't compute them)
+    "AvgAnswerAttributionRate",
+    "AvgSupportingPassageHit",
+    "AvgPageGroundingAccuracy",
 ]
 
 
