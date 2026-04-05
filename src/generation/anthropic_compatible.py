@@ -115,7 +115,14 @@ class AnthropicCompatibleGenerator:
         if not response.content:
             raise RuntimeError("Anthropic response did not contain any content blocks.")
 
-        text = response.content[0].text.strip()
+        # Skip ThinkingBlock / RedactedThinkingBlock; find first text block.
+        text_block = next(
+            (b for b in response.content if getattr(b, "type", None) == "text"),
+            None,
+        )
+        if text_block is None:
+            raise RuntimeError("Anthropic response did not contain a text content block.")
+        text = text_block.text.strip()
         if not text:
             raise RuntimeError("Anthropic response did not contain a final answer.")
 

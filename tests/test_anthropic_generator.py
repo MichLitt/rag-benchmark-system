@@ -27,6 +27,7 @@ def _doc(text: str = "Paris is the capital of France.", title: str = "France") -
 def _make_response(text: str, input_tokens: int = 10, output_tokens: int = 5) -> MagicMock:
     """Build a fake anthropic.types.Message-like object."""
     content_block = MagicMock()
+    content_block.type = "text"
     content_block.text = text
 
     usage = MagicMock()
@@ -249,6 +250,32 @@ class TestAnthropicErrors(unittest.TestCase):
         resp.content = []
         gen._client.messages.create.return_value = resp
         with self.assertRaises(RuntimeError, msg="content blocks"):
+            gen.generate("q", [_doc()])
+
+    def test_thinking_block_skipped_text_block_returned(self):
+        """ThinkingBlock (extended thinking) is skipped; first TextBlock is used."""
+        gen = _make_generator()
+        thinking_block = MagicMock()
+        thinking_block.type = "thinking"
+        thinking_block.thinking = "Let me think..."
+        text_block = MagicMock()
+        text_block.type = "text"
+        text_block.text = "Paris"
+        resp = _make_response("unused")
+        resp.content = [thinking_block, text_block]
+        gen._client.messages.create.return_value = resp
+        result = gen.generate("q", [_doc()])
+        self.assertEqual(result.text, "Paris")
+
+    def test_only_thinking_blocks_raises_runtime_error(self):
+        """Response with no TextBlock raises RuntimeError."""
+        gen = _make_generator()
+        thinking_block = MagicMock()
+        thinking_block.type = "thinking"
+        resp = _make_response("unused")
+        resp.content = [thinking_block]
+        gen._client.messages.create.return_value = resp
+        with self.assertRaises(RuntimeError, msg="text content block"):
             gen.generate("q", [_doc()])
 
     def test_blank_text_raises_runtime_error(self):
