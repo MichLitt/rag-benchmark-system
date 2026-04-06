@@ -1,11 +1,29 @@
 from dataclasses import dataclass, field
 
 
-@dataclass(frozen=True)
+@dataclass
 class Document:
     doc_id: str
     text: str
     title: str = ""
+    page_start: int | None = None   # first page this chunk spans (1-indexed)
+    page_end: int | None = None     # last page; equals page_start for single-page chunks
+    section: str | None = None      # heuristic heading / section label
+    source: str | None = None       # origin filename or URL
+    extra_metadata: dict = field(default_factory=dict)
+
+
+@dataclass
+class ScoredDocument:
+    """API-layer wrapper that pairs a Document with its retrieval score.
+
+    Only used in ``src/api/``; the internal retrieval pipeline continues to
+    operate on plain ``Document`` lists so existing code paths are unchanged.
+    """
+
+    document: Document
+    score: float          # normalized similarity or rerank score
+    retrieval_stage: str  # "dense" | "bm25" | "rerank"
 
 
 @dataclass(frozen=True)
@@ -69,3 +87,11 @@ class RunExampleResult:
     retrieval_failure_bucket: str = ""
     retrieved_texts: list[str] = field(default_factory=list)
     question: str = ""
+    # A3 NLI citation metrics (None = not computed; only set for PDF Q&A datasets)
+    answer_attribution_rate: float | None = None
+    supporting_passage_hit: float | None = None
+    page_grounding_accuracy: float | None = None
+    # C2 bad-case traceability fields
+    failure_stage: str = ""   # e.g. "retrieval", "generation", "rerank"
+    failure_detail: str = ""  # free-text error description
+    run_id: str = ""          # identifier of the originating eval run

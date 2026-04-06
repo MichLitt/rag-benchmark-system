@@ -1,7 +1,15 @@
 from datetime import datetime
 from pathlib import Path
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(override=True)
+except ImportError:
+    pass
+
 from src.config import load_yaml_config
+from src.evalops.adapter import build_eval_run_report
+from src.evalops.client import EvalOpsClient
 from src.generation import build_generator
 from src.io_utils import ensure_dir, save_json, save_run_results
 from src.pipeline import run_naive_rag
@@ -44,7 +52,14 @@ def main() -> None:
     run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir = ensure_dir(Path("experiments") / "runs" / run_id)
     save_json(out_dir / "metrics.json", metrics)
+    # Stamp run_id for per-example traceability before serializing
+    for r in results:
+        r.run_id = run_id
     save_run_results(out_dir / "predictions.json", results)
+
+    # EvalOps: submit run report (fails silently if endpoint not configured)
+    report = build_eval_run_report(run_id, metrics, results)
+    EvalOpsClient.from_env().submit(report)
 
     print("Run finished")
     for key, value in metrics.items():

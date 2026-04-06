@@ -12,6 +12,50 @@ import urllib.request
 from dataclasses import dataclass
 
 
+def score_faithfulness_nli(
+    answer: str,
+    context_texts: list[str],
+    scorer: "NLIScorer",
+    threshold: float = 0.5,
+) -> float:
+    """NLI-based faithfulness score (parallel to the LLM-as-judge path).
+
+    Uses a :class:`~src.evaluation.hhem_scorer.NLIScorer` (typically HHEM) to
+    compute post-hoc attribution: what fraction of answer sentences are entailed
+    by at least one context passage?
+
+    This metric complements ``score_faithfulness``; both can be run on the same
+    example and their distributions compared.
+
+    Args:
+        answer: The generated answer text.
+        context_texts: Retrieved passage texts (plain strings, no page metadata).
+        scorer: Any :class:`~src.evaluation.hhem_scorer.NLIScorer` instance.
+        threshold: Entailment probability cutoff (default 0.5).
+
+    Returns:
+        ``answer_attribution_rate`` ∈ [0, 1], or 0.0 for empty inputs.
+    """
+    from src.evaluation.citation import CitationEvaluator
+    from src.types import Document
+
+    if not answer.strip() or not context_texts:
+        return 0.0
+
+    passages = [
+        Document(doc_id=f"ctx{i}", text=t, title="")
+        for i, t in enumerate(context_texts)
+    ]
+    result = CitationEvaluator(scorer, threshold=threshold).evaluate(answer, passages)
+    return result.answer_attribution_rate if result.answer_attribution_rate is not None else 0.0
+
+
+# Type alias imported here to keep the forward reference resolvable at runtime
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from src.evaluation.hhem_scorer import NLIScorer
+
+
 JUDGE_SYSTEM_PROMPT = (
     "You are an impartial judge evaluating whether an answer is faithfully "
     "supported by the provided context. You must output ONLY a JSON object."

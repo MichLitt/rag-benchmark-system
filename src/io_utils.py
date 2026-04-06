@@ -62,6 +62,14 @@ def run_result_to_dict(r: RunExampleResult) -> dict[str, Any]:
         "first_gold_found": r.first_gold_found,
         "second_gold_found": r.second_gold_found,
         "retrieval_failure_bucket": r.retrieval_failure_bucket,
+        # A3 NLI citation metrics
+        "answer_attribution_rate": r.answer_attribution_rate,
+        "supporting_passage_hit": r.supporting_passage_hit,
+        "page_grounding_accuracy": r.page_grounding_accuracy,
+        # C2 bad-case traceability
+        "failure_stage": r.failure_stage,
+        "failure_detail": r.failure_detail,
+        "run_id": r.run_id,
     }
 
 
