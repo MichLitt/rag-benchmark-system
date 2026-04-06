@@ -13,6 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(override=True)
+except ImportError:
+    pass
+
 from src.config import load_yaml_config
 from src.evalops.adapter import build_eval_run_report
 from src.evalops.client import EvalOpsClient

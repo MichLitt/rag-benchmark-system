@@ -1,6 +1,12 @@
 from datetime import datetime
 from pathlib import Path
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(override=True)
+except ImportError:
+    pass
+
 from src.config import load_yaml_config
 from src.evalops.adapter import build_eval_run_report
 from src.evalops.client import EvalOpsClient
