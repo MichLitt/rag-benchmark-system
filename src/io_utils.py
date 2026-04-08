@@ -70,6 +70,10 @@ def run_result_to_dict(r: RunExampleResult) -> dict[str, Any]:
         "failure_stage": r.failure_stage,
         "failure_detail": r.failure_detail,
         "run_id": r.run_id,
+        # Phase 5 generation quality
+        "citation_count": r.citation_count,
+        "citation_precision": r.citation_precision,
+        "hedging_detected": r.hedging_detected,
     }
 
 

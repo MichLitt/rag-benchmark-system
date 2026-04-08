@@ -218,6 +218,26 @@ def parse_args() -> argparse.Namespace:
         help="Record generation errors in outputs and continue the run instead of aborting the batch.",
     )
     parser.add_argument(
+        "--postprocess-answers",
+        action="store_true",
+        help=(
+            "Strip hedging prefixes (e.g. 'According to the context, ...') from generated "
+            "answers before EM/F1 computation. Also strips 'Final answer: ' output from "
+            "the HotpotQA dataset-specific prompt. Enables pipeline.postprocess_answers."
+        ),
+    )
+    parser.add_argument(
+        "--generation-dataset",
+        type=str,
+        default=None,
+        help=(
+            "Override generation.dataset in the config for dataset-specific prompt routing "
+            "(hotpotqa | triviaqa | nq). Takes effect only when generation.system_prompt is "
+            "empty in the config. Used by run_phase5_experiment.py to inject the dataset name "
+            "per-run without creating separate configs."
+        ),
+    )
+    parser.add_argument(
         "--log-level",
         type=str,
         default="INFO",
@@ -695,6 +715,11 @@ def main() -> None:
             retriever_rank_weight=float(args.reranker_retriever_rank_weight),
             rank_fusion_k=int(args.reranker_rank_fusion_k),
         )
+    # Phase 5: inject --generation-dataset into config before building generator,
+    # so dataset-specific prompt routing and citation instruction injection work correctly.
+    if args.generation_dataset:
+        cfg.setdefault("generation", {})["dataset"] = args.generation_dataset.strip().lower()
+
     generator = build_generator(cfg)
     if hasattr(generator, "reasoning_split"):
         run_cfg["generator_effective_reasoning_split"] = bool(generator.reasoning_split)
@@ -799,6 +824,7 @@ def main() -> None:
                     query_expansion_mode=effective_query_expansion_mode,
                     continue_on_generation_error=bool(args.continue_on_generation_error),
                     progress_callback=progress_callback,
+                    postprocess_answers=bool(args.postprocess_answers),
                 )
             except Exception as exc:
                 write_progress_failed(f"{type(exc).__name__}: {exc}")

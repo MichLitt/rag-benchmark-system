@@ -222,6 +222,7 @@ def run_naive_rag(
     query_expansion_mode: str = "off",
     continue_on_generation_error: bool = False,
     progress_callback: Callable[[list[RunExampleResult], int, int], None] | None = None,
+    postprocess_answers: bool = False,
 ) -> tuple[list[RunExampleResult], dict[str, float]]:
     if top_k <= 0:
         raise ValueError(f"top_k must be > 0, got {top_k}")
@@ -362,6 +363,30 @@ def run_naive_rag(
         generation_latency_ms = (time.perf_counter() - start_generation) * 1000
         generation_latencies_ms.append(generation_latency_ms)
         predicted = generation_result.text if generation_result is not None else ""
+
+        # --- Phase 5A: answer post-processing (opt-in) ---
+        # Strip hedging prefixes before EM/F1 computation so metric normalisation
+        # operates on the clean extracted answer rather than the LLM preamble.
+        hedging_detected = False
+        if postprocess_answers and predicted:
+            from src.generation.postprocess import postprocess_answer
+            predicted, hedging_detected = postprocess_answer(predicted)
+
+        # --- Phase 5C: citation precision readout ---
+        # CitationConstrainedGenerator stores CitationScoringResult in
+        # last_citation_result after each generate() call.  We read it via
+        # hasattr so this path is a no-op for all other generator types.
+        citation_count: int | None = None
+        citation_precision: float | None = None
+        if (
+            generation_result is not None
+            and hasattr(generator, "last_citation_result")
+            and generator.last_citation_result is not None  # type: ignore[union-attr]
+        ):
+            cr = generator.last_citation_result  # type: ignore[union-attr]
+            citation_count = cr.citation_count
+            citation_precision = cr.citation_precision
+
         approx_input_tokens = _estimate_tokens(sample.question) + sum(_estimate_tokens(d.text) for d in docs)
         approx_output_tokens = _estimate_tokens(predicted)
         input_token_counts.append(approx_input_tokens)
@@ -424,6 +449,10 @@ def run_naive_rag(
                 first_gold_found=hotpot_gold_diagnostics.first_gold_found,
                 second_gold_found=hotpot_gold_diagnostics.second_gold_found,
                 retrieval_failure_bucket=hotpot_gold_diagnostics.retrieval_failure_bucket,
+                # Phase 5 fields
+                citation_count=citation_count,
+                citation_precision=citation_precision,
+                hedging_detected=hedging_detected,
             )
         )
         if progress_callback is not None:
@@ -486,6 +515,20 @@ def run_naive_rag(
         "ContinueOnGenerationError": bool(continue_on_generation_error),
         "NumGenerationErrors": generation_errors,
         "GenerationErrorRate": (generation_errors / len(results)) if results else 0.0,
+        # Phase 5 aggregate metrics
+        "HedgingRate": (
+            sum(1 for r in results if r.hedging_detected) / len(results) if results else 0.0
+        ),
+        "AvgCitationCount": (
+            mean(r.citation_count for r in results if r.citation_count is not None)
+            if any(r.citation_count is not None for r in results)
+            else 0.0
+        ),
+        "AvgCitationPrecision": (
+            mean(r.citation_precision for r in results if r.citation_precision is not None)
+            if any(r.citation_precision is not None for r in results)
+            else 0.0
+        ),
     }
     metrics.update(_hotpot_metrics(results))
     return results, metrics
