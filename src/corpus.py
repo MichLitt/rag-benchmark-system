@@ -51,11 +51,11 @@ def _row_to_document(row: dict) -> Document:
         doc_id=doc_id,
         title=title,
         text=text,
-        page_start=row.get("page_start"),
-        page_end=row.get("page_end"),
-        section=row.get("section"),
-        source=row.get("source"),
-        extra_metadata=row.get("extra_metadata") or {},
+        page_start=int(row["page_start"]) if row.get("page_start") is not None else None,
+        page_end=int(row["page_end"]) if row.get("page_end") is not None else None,
+        section=str(row["section"]) if row.get("section") is not None else None,
+        source=str(row["source"]) if row.get("source") is not None else None,
+        extra_metadata=dict(row.get("extra_metadata") or {}),
     )
 
 
