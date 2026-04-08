@@ -31,7 +31,7 @@ class QueryFactoryTests(unittest.TestCase):
             },
         }
 
-        with patch.dict(os.environ, {"LLM_API_KEY": "test-key"}, clear=False):
+        with patch.dict(os.environ, {"LLM_API_KEY": "test-key", "LLM_BASE_URL": "https://example.com/v1"}, clear=False):
             expander = build_query_expander(cfg, dataset_name="hotpotqa")
 
         self.assertIsNotNone(expander)
@@ -52,7 +52,7 @@ class QueryFactoryTests(unittest.TestCase):
             },
         }
 
-        with patch.dict(os.environ, {"LLM_API_KEY": "test-key"}, clear=False):
+        with patch.dict(os.environ, {"LLM_API_KEY": "test-key", "LLM_BASE_URL": "https://example.com/v1"}, clear=False):
             expander = build_query_expander(cfg, dataset_name="hotpotqa")
 
         self.assertIsNotNone(expander)

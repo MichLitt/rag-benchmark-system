@@ -1,0 +1,54 @@
+{
+  "scorer": "overlap_stub",
+  "A0_schema": {
+    "new_docs_written": 500,
+    "new_fields_preserved_pct": 100.0,
+    "old_docs_backward_compat_pct": 100.0,
+    "lazy_docstore_random_access_accuracy": 100.0
+  },
+  "A1_ingestion": {
+    "total_pages_parsed": 23,
+    "pages_skipped_empty": 0,
+    "total_chunks_256": 30,
+    "total_chunks_128": 43,
+    "chunk_ratio_256_vs_128": 1.4333333333333333,
+    "avg_tokens_per_chunk": 134.0,
+    "p50_tokens_per_chunk": 99.0,
+    "p95_tokens_per_chunk": 256,
+    "page_metadata_coverage_pct": 100.0
+  },
+  "A2_api": {
+    "total_requests": 120,
+    "errors": 0,
+    "error_rate_pct": 0.0,
+    "throughput_rps": 560.2,
+    "single_p50_ms": 2.1,
+    "single_p95_ms": 2.5,
+    "single_p99_ms": 2.6,
+    "concurrent_p50_ms": 13.7,
+    "concurrent_p95_ms": 18.8,
+    "concurrent_p99_ms": 19.1,
+    "passage_fields_ok": true,
+    "page_metadata_in_response": true
+  },
+  "A3_citation": {
+    "scorer_mode": "overlap-stub",
+    "num_queries": 30,
+    "retrieval_recall_at_5_pct": 90.0,
+    "avg_attribution_rate": 0.107,
+    "supporting_hit_rate_pct": 36.666666666666664,
+    "avg_page_grounding_accuracy": 1.0,
+    "correct_passage_consistent_pct": 40.0,
+    "avg_supp_nli_score": 0.136,
+    "avg_dist_nli_score": 0.04,
+    "supp_vs_dist_delta": 0.096
+  },
+  "integration": {
+    "pages_ingested": 5,
+    "chunks_produced": 5,
+    "docstore_reload_ok": true,
+    "page_metadata_ok": true,
+    "nli_hits_over_5_queries": 2,
+    "nli_hit_rate_pct": 40.0
+  }
+}

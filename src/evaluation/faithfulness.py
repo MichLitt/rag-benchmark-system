@@ -183,3 +183,39 @@ def score_faithfulness(
         reasoning=reasoning,
         raw_response=raw_text,
     )
+
+
+def nli_score_faithfulness(
+    answer: str,
+    context_docs: list,
+    *,
+    hhem_scorer,
+) -> FaithfulnessResult:
+    """NLI-based faithfulness scoring using HHEM as an alternative to LLM judge.
+
+    Computes the fraction of retrieved passages that are factually consistent
+    with the answer (post-hoc NLI attribution). Returns a FaithfulnessResult
+    compatible with the existing interface so callers can compare both methods.
+
+    Args:
+        answer: The generated answer string.
+        context_docs: List of Document objects (retrieved passages).
+        hhem_scorer: An HHEMScorer instance — injected to avoid loading the
+                     transformer model at import time.
+
+    Returns:
+        FaithfulnessResult where score = answer_attribution_rate (fraction of
+        passages consistent with the answer).
+    """
+    from src.evaluation.citation import CitationEvaluator
+
+    evaluator = CitationEvaluator(hhem_scorer)
+    result = evaluator.evaluate(answer, context_docs)
+    return FaithfulnessResult(
+        score=result.answer_attribution_rate,
+        reasoning=(
+            f"nli_attribution={result.answer_attribution_rate:.3f}; "
+            f"hit={result.supporting_passage_hit}"
+        ),
+        raw_response="",
+    )
