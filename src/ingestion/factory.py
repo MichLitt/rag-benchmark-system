@@ -1,20 +1,23 @@
+"""Parser factory: return the appropriate parser for the requested mode."""
 from __future__ import annotations
 
 from src.ingestion.pdf_parser import PdfParser
 
 
-def get_parser(mode: str) -> PdfParser:
-    """Return an ingestion parser for the given mode.
+def get_parser(mode: str = "pdf") -> PdfParser:
+    """Return a document parser for *mode*.
 
     Args:
-        mode: Parser mode. Currently only "pdf" is supported.
+        mode: ``"pdf"`` for native-text PDF parsing (pdfplumber).
+              ``"ocr"`` is a stretch goal and raises ``NotImplementedError``.
 
     Returns:
-        A parser instance.
-
-    Raises:
-        ValueError: If mode is not supported.
+        A parser instance with a ``parse(path) -> list[PageSpan]`` method.
     """
     if mode == "pdf":
         return PdfParser()
-    raise ValueError(f"Unknown parser mode: {mode!r}. Supported modes: 'pdf'")
+    if mode == "ocr":
+        raise NotImplementedError(
+            "OCR parser is a stretch goal and has not been implemented yet."
+        )
+    raise ValueError(f"Unknown parser mode: {mode!r}. Valid options: 'pdf'")

@@ -1,10 +1,11 @@
-#!/usr/bin/env python3
-"""Ingest PDF documents into a JSONL docstore.
+"""CLI: parse a PDF and write chunks to a JSONL docstore.
 
-Usage:
+Usage
+-----
     uv run python scripts/ingest_documents.py \\
-        --input doc1.pdf doc2.pdf \\
+        --input path/to/document.pdf \\
         --output data/indexes/my_index/docstore.jsonl \\
+        --title "My Document" \\
         --chunk-size 256 \\
         --overlap 32
 """
@@ -18,56 +19,69 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.ingestion.chunker import TokenAwareChunker
+from src.ingestion.chunker import TokenAwareChunker, make_doc_id_prefix
 from src.ingestion.factory import get_parser
+from src.logging_utils import configure_logging, get_logger
 from src.retrieval.docstore import save_docstore
-from src.types import Document
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="Parse PDF files into a chunked JSONL docstore.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="Ingest a PDF document into a JSONL docstore.",
     )
+    p.add_argument("--input", required=True, type=Path, help="Input PDF file path.")
     p.add_argument(
-        "--input", type=Path, required=True, nargs="+",
-        metavar="PDF",
-        help="One or more PDF files to ingest.",
+        "--output", required=True, type=Path,
+        help="Output JSONL docstore path (parent dirs created automatically).",
     )
-    p.add_argument(
-        "--output", type=Path, required=True,
-        metavar="JSONL",
-        help="Output JSONL docstore path.",
-    )
+    p.add_argument("--title", default="", help="Document title (defaults to filename stem).")
+    p.add_argument("--parser", default="pdf", choices=["pdf"], help="Parser mode.")
     p.add_argument("--chunk-size", type=int, default=256, help="Max tokens per chunk.")
-    p.add_argument("--overlap", type=int, default=32, help="Token overlap between consecutive chunks.")
-    p.add_argument("--mode", type=str, default="pdf", choices=["pdf"], help="Parser mode.")
+    p.add_argument("--overlap", type=int, default=32, help="Token overlap between chunks.")
+    p.add_argument("--log-level", default="INFO", help="Logging level.")
     return p.parse_args()
 
 
 def main() -> None:
     args = parse_args()
+    configure_logging(level=args.log_level)
+    logger = get_logger(__name__)
 
-    parser = get_parser(args.mode)
+    input_path: Path = args.input
+    if not input_path.exists():
+        logger.error("Input file not found: %s", input_path)
+        sys.exit(1)
+
+    title = args.title or input_path.stem
+    source = input_path.name
+
+    # Parse
+    parser = get_parser(args.parser)
+    pages = parser.parse(input_path)
+    if not pages:
+        logger.error("No text could be extracted from '%s' — aborting.", input_path)
+        sys.exit(1)
+
+    # Chunk
     chunker = TokenAwareChunker(chunk_size=args.chunk_size, overlap=args.overlap)
+    prefix = make_doc_id_prefix(source)
+    chunks = chunker.chunk(pages, doc_id_prefix=prefix, title=title, source=source)
 
-    all_docs: list[Document] = []
-    for pdf_path in args.input:
-        if not pdf_path.exists():
-            print(f"[ERROR] File not found: {pdf_path}", file=sys.stderr)
-            sys.exit(1)
-        pages = parser.parse(pdf_path)
-        page_count = len(pages)
-        chunks: list[Document] = []
-        for page_doc in pages:
-            chunks.extend(chunker.chunk(page_doc))
-        print(
-            f"  {pdf_path.name}: {page_count} pages → {len(chunks)} chunks"
-        )
-        all_docs.extend(chunks)
+    if not chunks:
+        logger.error("Chunker produced zero chunks — aborting.")
+        sys.exit(1)
 
-    save_docstore(args.output, all_docs)
-    print(f"\nWrote {len(all_docs)} chunks to {args.output}")
+    total_tokens = sum(
+        len(chunker._enc.encode(c.text)) for c in chunks  # noqa: SLF001
+    )
+    logger.info(
+        "Ingestion complete: %d chunks, %d total tokens → %s",
+        len(chunks), total_tokens, args.output,
+    )
+
+    # Persist
+    save_docstore(args.output, chunks)
+    logger.info("Docstore written to '%s'", args.output)
 
 
 if __name__ == "__main__":

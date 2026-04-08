@@ -131,18 +131,22 @@ def _iter_doc_batches(
 
 
 def _write_doc_row(doc_file, offsets_file, doc: Document) -> None:
-    row: dict = {"doc_id": doc.doc_id, "title": doc.title, "text": doc.text}
-    if doc.page_start is not None:
-        row["page_start"] = doc.page_start
-    if doc.page_end is not None:
-        row["page_end"] = doc.page_end
-    if doc.section is not None:
-        row["section"] = doc.section
-    if doc.source is not None:
-        row["source"] = doc.source
-    if doc.extra_metadata:
-        row["extra_metadata"] = doc.extra_metadata
-    raw = (json.dumps(row, ensure_ascii=False) + "\n").encode("utf-8")
+    raw = (
+        json.dumps(
+            {
+                "doc_id": doc.doc_id,
+                "title": doc.title,
+                "text": doc.text,
+                "page_start": doc.page_start,
+                "page_end": doc.page_end,
+                "section": doc.section,
+                "source": doc.source,
+                "extra_metadata": doc.extra_metadata,
+            },
+            ensure_ascii=False,
+        )
+        + "\n"
+    ).encode("utf-8")
     offsets_file.write(int(doc_file.tell()).to_bytes(8, byteorder="little", signed=False))
     doc_file.write(raw)
 

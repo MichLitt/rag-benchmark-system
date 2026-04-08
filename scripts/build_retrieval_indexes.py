@@ -164,17 +164,16 @@ def _build_dense_streaming(
         for batch in tqdm(_iter_doc_batches(corpus_path, max_docs, batch_size), desc="Encoding + indexing"):
             # Write docstore entries
             for doc in batch:
-                row: dict = {"doc_id": doc.doc_id, "title": doc.title, "text": doc.text}
-                if doc.page_start is not None:
-                    row["page_start"] = doc.page_start
-                if doc.page_end is not None:
-                    row["page_end"] = doc.page_end
-                if doc.section is not None:
-                    row["section"] = doc.section
-                if doc.source is not None:
-                    row["source"] = doc.source
-                if doc.extra_metadata:
-                    row["extra_metadata"] = doc.extra_metadata
+                row = {
+                    "doc_id": doc.doc_id,
+                    "title": doc.title,
+                    "text": doc.text,
+                    "page_start": doc.page_start,
+                    "page_end": doc.page_end,
+                    "section": doc.section,
+                    "source": doc.source,
+                    "extra_metadata": doc.extra_metadata,
+                }
                 ds_file.write(json.dumps(row, ensure_ascii=False) + "\n")
             # Encode and add to FAISS
             texts = [_combine_text(doc) for doc in batch]

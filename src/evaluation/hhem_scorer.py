@@ -1,104 +1,135 @@
+"""Vectara HHEM NLI scorer for post-hoc citation attribution.
+
+Uses `vectara/hallucination_evaluation_model` (DeBERTa-v3-base fine-tuned for
+factual consistency) to score (passage, answer_sentence) pairs.
+
+Score semantics
+---------------
+A score ≥ 0.5 indicates the passage *entails* the answer sentence
+(i.e., the passage factually supports the claim).  Lower scores indicate
+hallucination or lack of support.
+
+Label order
+-----------
+Per the Vectara model card, ``id2label = {0: 'consistent', 1: 'inconsistent'}``.
+``entailment_label_idx=0`` (the default) returns the probability of label 0
+(consistent / entailment).  This is verified at load time and logged so the
+caller can catch mismatches.
+
+Usage
+-----
+    scorer = HHEMScorer()
+    prob = scorer.score(premise="Paris is in France.", hypothesis="France has Paris.")
+    # prob ≈ 0.92 → passage supports the sentence
+"""
 from __future__ import annotations
 
-from dataclasses import dataclass
+import logging
+from typing import Protocol, runtime_checkable
+
+logger = logging.getLogger(__name__)
+
+_HHEM_MODEL_NAME = "vectara/hallucination_evaluation_model"
+_ENTAILMENT_LABEL_IDX = 0  # label 0 = consistent / entailment
 
 
-@dataclass(frozen=True)
-class HHEMResult:
-    score: float
-    """Factual consistency score in [0, 1]. Higher = more consistent (less hallucinated)."""
-    is_consistent: bool
-    """True if score >= threshold."""
-    error: str = ""
-    """Non-empty if scoring failed."""
+# ---------------------------------------------------------------------------
+# Protocol — injected into CitationEvaluator for testability
+# ---------------------------------------------------------------------------
 
+@runtime_checkable
+class NLIScorer(Protocol):
+    """Structural protocol: any object with a compatible ``score`` method."""
+
+    def score(self, premise: str, hypothesis: str) -> float:
+        """Return entailment probability ∈ [0, 1].
+
+        Args:
+            premise: The supporting passage text.
+            hypothesis: The answer sentence to evaluate.
+
+        Returns:
+            Probability ∈ [0, 1] that *premise* entails *hypothesis*.
+            Higher values indicate stronger support.
+        """
+        ...
+
+
+# ---------------------------------------------------------------------------
+# HHEMScorer
+# ---------------------------------------------------------------------------
 
 class HHEMScorer:
-    """NLI-based factual consistency scorer using Vectara HHEM.
+    """Vectara HHEM-based NLI scorer.
 
-    Uses vectara/hallucination_evaluation_model (a fine-tuned DeBERTa
-    cross-encoder) to score whether a generated answer is supported by a
-    source passage.
+    Loads ``vectara/hallucination_evaluation_model`` with
+    ``trust_remote_code=True`` (required by the model's custom code) and runs
+    inference on CPU or CUDA.
 
-    Reference: https://huggingface.co/vectara/hallucination_evaluation_model
-
-    Usage:
-        scorer = HHEMScorer()
-        result = scorer.score(
-            source="The sky is blue.",
-            summary="The sky has a blue color.",
-        )
-        print(result.score, result.is_consistent)
+    Args:
+        model_name: HuggingFace model ID (defaults to Vectara HHEM).
+        device: ``"cpu"`` or ``"cuda"``; auto-detected when ``None``.
+        entailment_label_idx: Index of the entailment label in the softmax
+            output.  Defaults to 0 (consistent).  Verify against
+            ``model.config.id2label`` if the model card changes.
     """
-
-    MODEL_NAME = "vectara/hallucination_evaluation_model"
 
     def __init__(
         self,
-        model_name: str = MODEL_NAME,
-        threshold: float = 0.5,
+        model_name: str = _HHEM_MODEL_NAME,
         device: str | None = None,
+        entailment_label_idx: int = _ENTAILMENT_LABEL_IDX,
     ) -> None:
-        # Lazy imports — transformers/torch are optional dependencies.
-        from transformers import AutoModelForSequenceClassification, AutoTokenizer
         import torch
+        from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-        self._threshold = threshold
-        self._device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        self._entailment_idx = entailment_label_idx
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        self._device = device
+        self._torch = torch
+
+        logger.info("Loading HHEM model %r on device=%s …", model_name, device)
         self._tokenizer = AutoTokenizer.from_pretrained(model_name)
         self._model = AutoModelForSequenceClassification.from_pretrained(
             model_name, trust_remote_code=True
         )
+        self._model.to(device)
         self._model.eval()
-        self._model.to(self._device)
 
-    def score(self, source: str, summary: str) -> HHEMResult:
-        """Score whether `summary` is factually consistent with `source`.
+        # Log the label mapping so callers can verify direction at runtime
+        id2label = getattr(self._model.config, "id2label", {})
+        logger.info(
+            "HHEM id2label=%s → using index %d as 'entailment'",
+            id2label, entailment_label_idx,
+        )
 
-        HHEM outputs a binary classification (0=hallucinated, 1=consistent).
-        We return the softmax probability of label=1 as the score.
+    # ------------------------------------------------------------------
+    # NLIScorer protocol implementation
+    # ------------------------------------------------------------------
 
-        Args:
-            source: The reference passage (ground truth / retrieved context).
-            summary: The generated answer or claim to evaluate.
-
-        Returns:
-            HHEMResult with score in [0, 1].
-        """
-        try:
-            import torch
-
-            inputs = self._tokenizer(
-                source,
-                summary,
-                return_tensors="pt",
-                truncation=True,
-                max_length=512,
-                padding=True,
-            ).to(self._device)
-
-            with torch.no_grad():
-                logits = self._model(**inputs).logits
-
-            probs = torch.softmax(logits, dim=-1)
-            # Label ordering: verify with model.config.id2label if behaviour seems wrong.
-            # HHEM model card states: label 0 = hallucinated, label 1 = factually consistent.
-            score = float(probs[0][1].item())
-            return HHEMResult(score=score, is_consistent=score >= self._threshold)
-
-        except Exception as exc:
-            return HHEMResult(score=0.0, is_consistent=False, error=str(exc))
-
-    def score_batch(
-        self,
-        pairs: list[tuple[str, str]],
-    ) -> list[HHEMResult]:
-        """Score a list of (source, summary) pairs sequentially.
+    def score(self, premise: str, hypothesis: str) -> float:
+        """Return entailment probability ∈ [0, 1].
 
         Args:
-            pairs: List of (source, summary) tuples.
+            premise: Retrieved passage text (the source of evidence).
+            hypothesis: Answer sentence to evaluate against the passage.
 
         Returns:
-            List of HHEMResult, one per pair, in the same order.
+            Probability that *premise* entails *hypothesis*.
         """
-        return [self.score(source, summary) for source, summary in pairs]
+        inputs = self._tokenizer(
+            premise,
+            hypothesis,
+            return_tensors="pt",
+            truncation=True,
+            max_length=512,
+            padding=False,
+        )
+        inputs = {k: v.to(self._device) for k, v in inputs.items()}
+
+        with self._torch.no_grad():
+            logits = self._model(**inputs).logits
+
+        probs = self._torch.softmax(logits, dim=-1)
+        return float(probs[0][self._entailment_idx].item())

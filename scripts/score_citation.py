@@ -1,17 +1,21 @@
-#!/usr/bin/env python3
-"""Batch NLI citation scoring for existing run result JSON files.
+"""CLI: batch-score citation metrics on an existing run-result JSONL file.
 
-Reads a run results JSON (produced by run_naive_rag_baseline.py or
-run_phase4_matrix.py), scores each row's retrieved_texts against the
-predicted_answer using HHEM, and writes the enriched results to a new JSON.
+Reads a run-result JSONL (fields: query_id, predicted_answer, retrieved_texts,
+optionally gold_page_set), computes answer_attribution_rate /
+supporting_passage_hit / page_grounding_accuracy for each row using HHEM, and
+writes an augmented JSONL to --output.
 
-Usage:
+Usage
+-----
     uv run python scripts/score_citation.py \\
-        --input experiments/phase4_results.json \\
-        --output /tmp/phase4_results_scored.json
+        --input  results/run_results.jsonl \\
+        --output results/run_results_cited.jsonl \\
+        --device cpu
 
-Note: Requires transformers and torch. First run will download the HHEM model
-(~500 MB). Set HF_HOME to control the cache location.
+The script skips rows where retrieved_texts or predicted_answer is absent/empty.
+Rows that already have citation scores are overwritten.
+
+Note: Downloads ~430 MB from HuggingFace on first run.
 """
 from __future__ import annotations
 
@@ -26,81 +30,85 @@ if str(ROOT) not in sys.path:
 
 from src.evaluation.citation import CitationEvaluator
 from src.evaluation.hhem_scorer import HHEMScorer
+from src.logging_utils import configure_logging, get_logger
 from src.types import Document
 
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(
-        description="Batch NLI citation scoring for RAG run results.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    p.add_argument(
-        "--input", type=Path, required=True,
-        help="Run results JSON file (list of result dicts).",
-    )
-    p.add_argument(
-        "--output", type=Path, required=True,
-        help="Output JSON path with nli_* fields appended to each row.",
-    )
-    p.add_argument(
-        "--hhem-model",
-        default=HHEMScorer.MODEL_NAME,
-        help="HuggingFace model name for HHEM.",
-    )
-    p.add_argument(
-        "--threshold", type=float, default=0.5,
-        help="Consistency threshold for is_consistent flag.",
-    )
+    p = argparse.ArgumentParser(description="Score citation metrics on a run-result JSONL.")
+    p.add_argument("--input", required=True, type=Path, help="Input run-result JSONL.")
+    p.add_argument("--output", required=True, type=Path, help="Output augmented JSONL path.")
+    p.add_argument("--device", default=None, help="Torch device (cpu / cuda). Auto-detected.")
+    p.add_argument("--threshold", type=float, default=0.5, help="NLI entailment threshold.")
+    p.add_argument("--page-tolerance", type=int, default=1, help="Page range tolerance (±N).")
+    p.add_argument("--log-level", default="INFO")
     return p.parse_args()
+
+
+def _load_rows(path: Path) -> list[dict]:
+    rows = []
+    with path.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
 
 
 def main() -> None:
     args = parse_args()
+    configure_logging(level=args.log_level)
+    logger = get_logger(__name__)
 
     if not args.input.exists():
-        print(f"[ERROR] Input file not found: {args.input}", file=sys.stderr)
+        logger.error("Input file not found: %s", args.input)
         sys.exit(1)
 
-    print(f"Loading HHEM model: {args.hhem_model}")
-    scorer = HHEMScorer(model_name=args.hhem_model, threshold=args.threshold)
-    evaluator = CitationEvaluator(scorer)
+    rows = _load_rows(args.input)
+    logger.info("Loaded %d rows from %s", len(rows), args.input)
 
-    with args.input.open("r", encoding="utf-8") as f:
-        rows: list[dict] = json.load(f)
+    logger.info("Loading HHEM model (this may take a moment on first run) …")
+    scorer = HHEMScorer(device=args.device)
+    evaluator = CitationEvaluator(
+        scorer, threshold=args.threshold, page_tolerance=args.page_tolerance
+    )
 
-    print(f"Scoring {len(rows)} rows...")
-    enriched: list[dict] = []
-    for i, row in enumerate(rows, start=1):
-        answer = row.get("predicted_answer", "")
-        texts: list[str] = row.get("retrieved_texts", [])
-        # Build lightweight Documents from retrieved_texts (no page metadata
-        # in legacy run results — page_grounding_accuracy will be None).
+    skipped = 0
+    for i, row in enumerate(rows):
+        answer = str(row.get("predicted_answer") or "").strip()
+        retrieved_texts: list[str] = row.get("retrieved_texts") or []
+
+        if not answer or not retrieved_texts:
+            skipped += 1
+            continue
+
         passages = [
-            Document(doc_id=f"p{j}", text=t, title="")
-            for j, t in enumerate(texts)
+            Document(doc_id=f"ctx{j}", text=t, title="")
+            for j, t in enumerate(retrieved_texts)
         ]
-        result = evaluator.evaluate(answer, passages)
-        row = dict(row)  # shallow copy to avoid mutating original
-        row["nli_answer_attribution_rate"] = result.answer_attribution_rate
-        row["nli_supporting_passage_hit"] = result.supporting_passage_hit
-        row["nli_page_grounding_accuracy"] = result.page_grounding_accuracy
-        enriched.append(row)
-        if i % 50 == 0:
-            print(f"  {i}/{len(rows)} scored")
+
+        # gold_page_set: list[int] in JSON → set[int]
+        raw_pages = row.get("gold_page_set")
+        gold_pages = set(map(int, raw_pages)) if raw_pages else None
+
+        result = evaluator.evaluate(answer, passages, gold_page_set=gold_pages)
+
+        row["answer_attribution_rate"] = result.answer_attribution_rate
+        row["supporting_passage_hit"] = result.supporting_passage_hit
+        row["page_grounding_accuracy"] = result.page_grounding_accuracy
+
+        if (i + 1) % 10 == 0:
+            logger.info("Scored %d/%d rows …", i + 1, len(rows))
+
+    if skipped:
+        logger.warning("Skipped %d rows (missing answer or retrieved_texts).", skipped)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", encoding="utf-8") as f:
-        json.dump(enriched, f, ensure_ascii=False, indent=2)
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
-    print(f"\nWrote {len(enriched)} rows → {args.output}")
-
-    # Summary stats
-    rates = [r["nli_answer_attribution_rate"] for r in enriched]
-    hits = [r["nli_supporting_passage_hit"] for r in enriched]
-    avg_rate = sum(rates) / len(rates) if rates else 0.0
-    hit_rate = sum(hits) / len(hits) if hits else 0.0
-    print(f"avg nli_answer_attribution_rate: {avg_rate:.3f}")
-    print(f"supporting_passage_hit rate:     {hit_rate:.3f}")
+    logger.info("Written %d rows to %s", len(rows), args.output)
 
 
 if __name__ == "__main__":

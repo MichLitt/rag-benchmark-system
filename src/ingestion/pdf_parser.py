@@ -1,54 +1,52 @@
+"""PDF parsing layer: extract per-page text using pdfplumber (native-text PDFs only)."""
 from __future__ import annotations
 
+import logging
+from dataclasses import dataclass
 from pathlib import Path
 
-from src.types import Document
+import pdfplumber
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class PageSpan:
+    """Text content extracted from a single PDF page."""
+    page_num: int   # 1-indexed
+    text: str
 
 
 class PdfParser:
-    """Parse a native-text PDF into a list of Documents, one per page.
+    """Parse a native-text PDF into a list of per-page PageSpan objects.
 
-    Uses pdfplumber for text extraction. Scanned/image-only PDFs are not
-    supported (OCR is out of scope for Phase 2 MVP).
+    Each PageSpan contains the full text of one page and its 1-indexed page number.
+    Empty pages (no extractable text) are skipped with a debug-level log.
+
+    OCR/scanned-PDF support is a stretch goal not implemented here.
     """
 
-    def parse(
-        self,
-        pdf_path: str | Path,
-        *,
-        source: str | None = None,
-    ) -> list[Document]:
-        """Parse a PDF file and return one Document per non-empty page.
+    def parse(self, path: str | Path) -> list[PageSpan]:
+        """Return one PageSpan per non-empty page in the PDF.
 
         Args:
-            pdf_path: Path to the PDF file.
-            source: Optional source label stored in Document.source.
-                    Defaults to the file path string.
+            path: Path to a native-text PDF file.
 
         Returns:
-            List of Documents with page_start == page_end == page number (1-indexed).
-            Pages with no extractable text are silently skipped.
+            List of PageSpan, one entry per page that yielded extractable text.
         """
-        import pdfplumber  # lazy import — optional dependency
-
-        path = Path(pdf_path)
-        src = source or str(path)
-        docs: list[Document] = []
-
+        path = Path(path)
+        pages: list[PageSpan] = []
         with pdfplumber.open(path) as pdf:
-            for page_num, page in enumerate(pdf.pages, start=1):
+            total = len(pdf.pages)
+            for i, page in enumerate(pdf.pages, start=1):
                 text = page.extract_text() or ""
-                text = text.strip()
-                if not text:
-                    continue
-                doc_id = f"{path.stem}_p{page_num}"
-                docs.append(Document(
-                    doc_id=doc_id,
-                    text=text,
-                    title=path.stem,
-                    page_start=page_num,
-                    page_end=page_num,
-                    source=src,
-                ))
-
-        return docs
+                if text.strip():
+                    pages.append(PageSpan(page_num=i, text=text))
+                else:
+                    logger.debug("Page %d/%d yielded no text — skipped", i, total)
+        logger.info(
+            "Parsed %d/%d pages with text from '%s'",
+            len(pages), total, path.name,
+        )
+        return pages
