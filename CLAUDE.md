@@ -13,6 +13,10 @@ uv run pytest tests/<file> -k "<name>" -q     # run a single test
 # Retrieval API server (indexes registered via INDEX_CONFIG_<ID> env vars)
 INDEX_CONFIG_DEFAULT=config/wiki18_21m_sharded.yaml uv run python scripts/start_api.py --port 8080
 
+# Async ingest endpoint (upload PDF, poll for completion)
+curl -X POST http://localhost:8080/v1/ingest -F "file=@docs/paper.pdf" -F "index_id=mypdf"
+curl http://localhost:8080/v1/ingest/<job_id>   # poll: pending → running → complete
+
 # PDF ingestion (offline, before building index)
 uv run python scripts/ingest_documents.py --input docs/paper.pdf --output data/indexes/mypdf/docstore.jsonl
 
@@ -55,7 +59,9 @@ A FastAPI server exposing `POST /v1/retrieve` and `GET /v1/health`. Indexes are 
 
 ### Ingestion Pipeline (PDF → retrievable index)
 
-Two-stage: `PdfParser` (pdfplumber, native-text only) → `TokenAwareChunker` (tiktoken sliding window, 256 tokens / 32 overlap). Chunker preserves `page_start/page_end` by maintaining a per-token page-number map. Produces `docstore.jsonl`. OCR/scanned-PDF support is not implemented.
+Two-stage: `Parser` → `TokenAwareChunker` (tiktoken sliding window, 256 tokens / 32 overlap). Chunker preserves `page_start/page_end` by maintaining a per-token page-number map. Produces `docstore.jsonl`.
+
+The factory (`src/ingestion/factory.py`) selects the parser automatically: if pdfplumber extracts fewer than 10 characters from the first page, it falls back to `OcrParser` (PyMuPDF render → Tesseract OCR). Tesseract must be installed on the system (`brew install tesseract` / `apt-get install tesseract-ocr`).
 
 ### EvalOps Integration
 
@@ -78,4 +84,4 @@ Phase 1 tests cover retrieval components, pipeline, metrics, and query expansion
 
 - **Phase 1** (closed 2026-03-10): Offline benchmark on HotpotQA/NQ/TriviaQA. Key finding: Recall@k is 0.63–0.81; generation is the bottleneck (F1 0.10–0.21).
 - **Phase 2** (closed 2026-04-08): PDF ingestion, FastAPI retrieval API, NLI citation evaluation. See `report/phase2_closure_20260408.md` for full delivery list and known limitations.
-- **Phase 3** (in progress): OCR/scanned-PDF pipeline, `/v1/ingest` async API endpoint, agent-side `knowledge_retrieval` tool integration.
+- **Phase 3** (closed 2026-04-24): OCR/scanned-PDF pipeline (`src/ingestion/ocr_parser.py`), async `/v1/ingest` upload endpoint (`src/api/ingest.py`), CLAUDE.md added. 339 tests passing.

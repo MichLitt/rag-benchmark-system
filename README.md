@@ -26,6 +26,8 @@ Query → Retriever → Reranker   →   FastAPI /v1/retrieve
 | Query Expansion | HyDE, HotpotQA Decompose | LLM-based query rewriting |
 | Generation | OpenAI-compatible API | MiniMax-M2.5 with reasoning split |
 | **PDF Ingestion** | pdfplumber + tiktoken | Native-text PDF → token-aware chunks with page metadata |
+| **OCR Ingestion** | PyMuPDF + Tesseract | Scanned/image-based PDF → OCR text with page spans |
+| **Async Ingest API** | FastAPI BackgroundTasks | `POST /v1/ingest` (upload) + `GET /v1/ingest/{job_id}` (poll status) |
 | **Retrieval API** | FastAPI + uvicorn | `/v1/retrieve` and `/v1/health` HTTP endpoints |
 | **NLI Evaluation** | Vectara HHEM | Post-hoc citation attribution (answer_attribution_rate, page_grounding_accuracy) |
 | Evaluation | EM, F1, Recall@k, Faithfulness | LLM-as-judge + NLI-as-judge |
@@ -117,6 +119,53 @@ uv run python scripts/eval_phase2_full.py --use-real-hhem
 - `answer_attribution_rate` — fraction of retrieved passages consistent with the answer
 - `supporting_passage_hit` — any passage above the NLI consistency threshold
 - `page_grounding_accuracy` — of consistent passages, fraction with page metadata (PDF only)
+
+---
+
+## Phase 3: OCR and Async Ingestion
+
+### OCR Parser (scanned/image-based PDFs)
+
+The OCR parser handles PDFs where pdfplumber yields no extractable text because content is stored as images. It uses PyMuPDF to render each page to a high-resolution image, then Tesseract to extract text.
+
+**System requirements:**
+```bash
+# macOS
+brew install tesseract
+
+# Linux
+apt-get install tesseract-ocr
+```
+
+The ingestion factory automatically selects OCR when pdfplumber extracts fewer than 10 characters from the first page:
+
+```bash
+uv run python scripts/ingest_documents.py \
+    --input docs/scanned_manual.pdf \
+    --output data/indexes/scanned/docstore.jsonl
+```
+
+### Async PDF Ingest Endpoint
+
+Upload a PDF and get back a `job_id`; poll until the index is ready for retrieval:
+
+```bash
+# Upload PDF (returns job_id immediately)
+curl -X POST http://localhost:8080/v1/ingest \
+    -F "file=@docs/paper.pdf" \
+    -F "index_id=my_paper"
+
+# Poll job status
+curl http://localhost:8080/v1/ingest/<job_id>
+# {"job_id": "...", "status": "complete", "index_id": "my_paper", ...}
+
+# Once complete, retrieve from the new index
+curl -X POST http://localhost:8080/v1/retrieve \
+    -H "Content-Type: application/json" \
+    -d '{"query": "main contribution", "top_k": 5, "index_id": "my_paper"}'
+```
+
+Job statuses: `pending` → `running` → `complete` | `failed`
 
 ---
 
@@ -224,6 +273,7 @@ rag-benchmark-study/
 | Datasets | HotpotQA, NQ, TriviaQA (FlashRAG) |
 | Dashboard | Streamlit + Plotly |
 | **PDF Parsing** | pdfplumber |
+| **OCR** | PyMuPDF (fitz) + Tesseract |
 | **API** | FastAPI + uvicorn |
 | **NLI Scorer** | Vectara HHEM (transformers) |
 | Package Manager | uv |
