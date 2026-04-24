@@ -11,13 +11,16 @@ from fastapi import FastAPI
 from fastapi.concurrency import run_in_threadpool
 
 from src.api.handlers import handle_health, handle_retrieve
+from src.api.ingest import router as ingest_router
 from src.api.models import HealthResponse, RetrieveRequest, RetrieveResponse
 
 app = FastAPI(
     title="RAG Retrieval API",
-    description="Read-only retrieval service for pre-built FAISS / BM25 indexes.",
-    version="0.1.0",
+    description="Retrieval service for pre-built FAISS / BM25 indexes with async PDF ingestion.",
+    version="0.2.0",
 )
+
+app.include_router(ingest_router, prefix="/v1")
 
 
 @app.post("/v1/retrieve", response_model=RetrieveResponse)

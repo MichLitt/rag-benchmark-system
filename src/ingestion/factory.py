@@ -1,15 +1,16 @@
 """Parser factory: return the appropriate parser for the requested mode."""
 from __future__ import annotations
 
+from src.ingestion.ocr_parser import OcrPdfParser
 from src.ingestion.pdf_parser import PdfParser
 
 
-def get_parser(mode: str = "pdf") -> PdfParser:
+def get_parser(mode: str = "pdf") -> PdfParser | OcrPdfParser:
     """Return a document parser for *mode*.
 
     Args:
         mode: ``"pdf"`` for native-text PDF parsing (pdfplumber).
-              ``"ocr"`` is a stretch goal and raises ``NotImplementedError``.
+              ``"ocr"`` for scanned/image-based PDFs (PyMuPDF + Tesseract).
 
     Returns:
         A parser instance with a ``parse(path) -> list[PageSpan]`` method.
@@ -17,7 +18,5 @@ def get_parser(mode: str = "pdf") -> PdfParser:
     if mode == "pdf":
         return PdfParser()
     if mode == "ocr":
-        raise NotImplementedError(
-            "OCR parser is a stretch goal and has not been implemented yet."
-        )
-    raise ValueError(f"Unknown parser mode: {mode!r}. Valid options: 'pdf'")
+        return OcrPdfParser()
+    raise ValueError(f"Unknown parser mode: {mode!r}. Valid options: 'pdf', 'ocr'")

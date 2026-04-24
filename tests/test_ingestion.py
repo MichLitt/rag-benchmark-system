@@ -324,9 +324,9 @@ def test_factory_returns_pdf_parser():
     assert isinstance(p, PdfParser)
 
 
-def test_factory_ocr_not_implemented():
-    with pytest.raises(NotImplementedError):
-        get_parser("ocr")
+def test_factory_ocr_returns_ocr_parser():
+    from src.ingestion.ocr_parser import OcrPdfParser
+    assert isinstance(get_parser("ocr"), OcrPdfParser)
 
 
 def test_factory_unknown_mode_raises():

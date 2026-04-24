@@ -35,7 +35,10 @@ def parse_args() -> argparse.Namespace:
         help="Output JSONL docstore path (parent dirs created automatically).",
     )
     p.add_argument("--title", default="", help="Document title (defaults to filename stem).")
-    p.add_argument("--parser", default="pdf", choices=["pdf"], help="Parser mode.")
+    p.add_argument(
+        "--parser", default="pdf", choices=["pdf", "ocr"],
+        help="Parser mode: 'pdf' for native-text PDFs, 'ocr' for scanned/image-based PDFs.",
+    )
     p.add_argument("--chunk-size", type=int, default=256, help="Max tokens per chunk.")
     p.add_argument("--overlap", type=int, default=32, help="Token overlap between chunks.")
     p.add_argument("--log-level", default="INFO", help="Logging level.")

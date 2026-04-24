@@ -58,3 +58,18 @@ class HealthResponse(BaseModel):
         default_factory=list,
         description="index_ids whose retrievers are currently in memory.",
     )
+
+
+# ---------------------------------------------------------------------------
+# /v1/ingest
+# ---------------------------------------------------------------------------
+
+class IngestJobStatus(BaseModel):
+    job_id: str
+    index_id: str
+    status: str = Field(..., description="queued | processing | completed | failed")
+    progress: float = Field(0.0, ge=0.0, le=1.0)
+    doc_count: int | None = None
+    error: str | None = None
+    created_at: float
+    completed_at: float | None = None
