@@ -95,3 +95,7 @@ class RunExampleResult:
     failure_stage: str = ""   # e.g. "retrieval", "generation", "rerank"
     failure_detail: str = ""  # free-text error description
     run_id: str = ""          # identifier of the originating eval run
+    # Phase 5 generation quality fields
+    citation_count: int | None = None        # number of [N] references in raw answer
+    citation_precision: float | None = None  # fraction of cited passages with HHEM >= threshold
+    hedging_detected: bool = False           # True if postprocess_answer() stripped a hedge prefix
