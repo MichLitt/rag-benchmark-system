@@ -12,6 +12,7 @@ GET  /v1/ingest/{job_id} — poll job status
 from __future__ import annotations
 
 import pickle
+import re
 import time
 import uuid
 from pathlib import Path
@@ -31,11 +32,11 @@ logger = get_logger(__name__)
 
 router = APIRouter()
 
+_INDEX_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
+
 # In-memory job registry: job_id → IngestJobStatus
 # Sufficient for MVP; survives the server process lifetime.
 _jobs: dict[str, IngestJobStatus] = {}
-
-_DATA_DIR = Path("data/indexes")
 
 
 def _combine_text(doc) -> str:
@@ -136,15 +137,29 @@ async def create_ingest_job(
     """
     if parser not in ("pdf", "ocr"):
         raise HTTPException(status_code=422, detail=f"Invalid parser: {parser!r}. Use 'pdf' or 'ocr'.")
-    if not index_id.strip():
-        raise HTTPException(status_code=422, detail="index_id must not be empty.")
+    index_id = index_id.strip()
+    if not _INDEX_ID_RE.fullmatch(index_id):
+        raise HTTPException(
+            status_code=422,
+            detail=(
+                "index_id must be 1-128 characters and contain only letters, "
+                "numbers, '.', '_', or '-'."
+            ),
+        )
 
     job_id = str(uuid.uuid4())
-    index_dir = _DATA_DIR / index_id
+    # Use the same root configured by scripts/start_api.py --data-dir so a
+    # newly ingested index is discoverable by the live registry.
+    index_dir = get_registry().data_dir / index_id
     index_dir.mkdir(parents=True, exist_ok=True)
 
     # Save the uploaded file synchronously before handing off to background task
-    pdf_path = index_dir / (file.filename or "upload.pdf")
+    # UploadFile.filename is client-controlled. Normalize both POSIX and
+    # Windows separators before joining it to the configured index directory.
+    upload_name = Path((file.filename or "").replace("\\", "/")).name
+    if upload_name in {"", ".", ".."}:
+        upload_name = "upload.pdf"
+    pdf_path = index_dir / upload_name
     content = await file.read()
     pdf_path.write_bytes(content)
 

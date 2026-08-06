@@ -2,9 +2,8 @@ import time
 from statistics import mean
 from typing import Callable, Protocol
 
-import tiktoken
-
 from src.logging_utils import get_logger
+from src.tokenization import get_tokenizer
 
 logger = get_logger(__name__)
 
@@ -49,11 +48,8 @@ def _normalize(text: str) -> str:
     return " ".join(text.lower().strip().split())
 
 
-_TOKENIZER = tiktoken.get_encoding("cl100k_base")
-
-
 def _estimate_tokens(text: str) -> int:
-    return len(_TOKENIZER.encode(_normalize(text)))
+    return len(get_tokenizer("cl100k_base").encode(_normalize(text)))
 
 
 def _answer_presence_recall_at_k(docs: list[Document], answers: list[str], k: int) -> float:

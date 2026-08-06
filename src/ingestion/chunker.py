@@ -6,9 +6,8 @@ import logging
 import re
 from typing import Sequence
 
-import tiktoken
-
 from src.ingestion.pdf_parser import PageSpan
+from src.tokenization import get_tokenizer
 from src.types import Document
 
 logger = logging.getLogger(__name__)
@@ -60,7 +59,7 @@ class TokenAwareChunker:
             raise ValueError(f"overlap ({overlap}) must be < chunk_size ({chunk_size})")
         self.chunk_size = chunk_size
         self.overlap = overlap
-        self._enc = tiktoken.get_encoding(encoding_name)
+        self._enc = get_tokenizer(encoding_name)
 
     # ------------------------------------------------------------------
     # Public API

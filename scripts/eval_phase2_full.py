@@ -33,14 +33,13 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-import tiktoken
-
 from src.evaluation.citation import CitationEvaluator, CitationResult
 from src.evaluation.hhem_scorer import HHEMResult, HHEMScorer
 from src.ingestion.chunker import TokenAwareChunker
 from src.ingestion.pdf_parser import PdfParser
 from src.retrieval.docstore import build_docstore_offsets, load_docstore, save_docstore, LazyDocstore
 from src.retrieval.keyword import KeywordRetriever
+from src.tokenization import get_tokenizer
 from src.types import Document, ScoredDocument
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -183,7 +182,7 @@ class _OverlapScorer:
     """
     def __init__(self, threshold: float = 0.15) -> None:
         self._threshold = threshold
-        self._enc = tiktoken.get_encoding("cl100k_base")
+        self._enc = get_tokenizer("cl100k_base")
 
     def _token_overlap_f1(self, a: str, b: str) -> float:
         ta = set(self._enc.encode(a.lower()))
@@ -368,7 +367,7 @@ def eval_a1_ingestion(tmpdir: Path) -> dict:
     parser = PdfParser()
     chunker_256 = TokenAwareChunker(chunk_size=256, overlap=32)
     chunker_128 = TokenAwareChunker(chunk_size=128, overlap=16)
-    enc = tiktoken.get_encoding("cl100k_base")
+    enc = get_tokenizer("cl100k_base")
 
     total_pages = 0
     total_chunks_256 = 0

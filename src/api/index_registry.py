@@ -46,6 +46,11 @@ class IndexRegistry:
         self._entry_locks: dict[str, threading.Lock] = {}
         self._global_lock = threading.Lock()  # protects _entry_locks dict
 
+    @property
+    def data_dir(self) -> Path:
+        """Root used for both index discovery and runtime ingestion."""
+        return self._data_dir
+
     # ------------------------------------------------------------------ #
     # Discovery
     # ------------------------------------------------------------------ #

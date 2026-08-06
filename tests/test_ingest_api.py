@@ -42,7 +42,6 @@ def _isolated_registry(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     """Give each test its own IndexRegistry and job store pointing at tmp_path."""
     reg = IndexRegistry(data_dir=tmp_path / "indexes")
     monkeypatch.setattr(handlers, "_registry", reg)
-    monkeypatch.setattr(ingest, "_DATA_DIR", tmp_path / "indexes")
     ingest._jobs.clear()
     yield
     ingest._jobs.clear()
@@ -142,6 +141,37 @@ def test_ingest_empty_index_id_returns_422():
             files={"file": ("f.pdf", io.BytesIO(pdf_bytes), "application/pdf")},
         )
     assert resp.status_code == 422
+
+
+def test_ingest_rejects_index_id_path_traversal():
+    pdf_bytes = _make_pdf_bytes(["text"])
+    with TestClient(app) as client:
+        resp = client.post(
+            "/v1/ingest",
+            data={"index_id": "../../outside"},
+            files={"file": ("f.pdf", io.BytesIO(pdf_bytes), "application/pdf")},
+        )
+    assert resp.status_code == 422
+
+
+def test_ingest_sanitizes_uploaded_filename(tmp_path: Path):
+    pdf_bytes = _make_pdf_bytes(["safe upload"])
+    with TestClient(app) as client:
+        resp = client.post(
+            "/v1/ingest",
+            data={"index_id": "safe-index"},
+            files={
+                "file": (
+                    "../../outside.pdf",
+                    io.BytesIO(pdf_bytes),
+                    "application/pdf",
+                )
+            },
+        )
+
+    assert resp.status_code == 202
+    assert (tmp_path / "indexes" / "safe-index" / "outside.pdf").exists()
+    assert not (tmp_path / "outside.pdf").exists()
 
 
 def test_get_unknown_job_returns_404():
