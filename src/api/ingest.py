@@ -1,8 +1,7 @@
 """Async PDF ingestion endpoint.
 
-Accepts a PDF file upload, runs the parse → chunk → BM25-index pipeline in a
-FastAPI BackgroundTask, and makes the resulting index immediately available for
-retrieval once complete.
+Accepts a PDF upload and persists a durable ingestion job.  A separate worker
+claims the job and runs the parse → chunk → BM25-index pipeline.
 
 Endpoints
 ---------
@@ -11,22 +10,17 @@ GET  /v1/ingest/{job_id} — poll job status
 """
 from __future__ import annotations
 
-import pickle
+import hashlib
 import re
-import time
-import uuid
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import APIRouter, BackgroundTasks, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Form, HTTPException, UploadFile
 
 from src.api.handlers import get_registry
 from src.api.models import IngestJobStatus
-from src.ingestion.chunker import TokenAwareChunker, make_doc_id_prefix
-from src.ingestion.factory import get_parser
+from src.ingestion.job_store import IngestJobStore
 from src.logging_utils import get_logger
-from src.retrieval.docstore import load_docstore, save_docstore
-from src.retrieval.tokenize import simple_tokenize
 
 logger = get_logger(__name__)
 
@@ -34,95 +28,25 @@ router = APIRouter()
 
 _INDEX_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 
-# In-memory job registry: job_id → IngestJobStatus
-# Sufficient for MVP; survives the server process lifetime.
-_jobs: dict[str, IngestJobStatus] = {}
+MAX_UPLOAD_BYTES = 25 * 1024 * 1024
+MAX_DATA_BYTES = 2 * 1024 * 1024 * 1024
+MIN_CHUNK_SIZE = 64
+MAX_CHUNK_SIZE = 2048
 
 
-def _combine_text(doc) -> str:
-    return f"{doc.title} {doc.text}".strip()
+def get_job_store() -> IngestJobStore:
+    """Use a queue database adjacent to the configured persistent index root."""
+    return IngestJobStore(get_registry().data_dir / ".ingest-jobs.sqlite3")
 
 
-def _build_bm25(index_dir: Path, docs: list) -> None:
-    from rank_bm25 import BM25Okapi
-    tokenized = [simple_tokenize(_combine_text(d)) for d in docs]
-    bm25 = BM25Okapi(tokenized)
-    with open(index_dir / "bm25.pkl", "wb") as f:
-        pickle.dump(bm25, f)
-
-
-def _run_ingestion(
-    job_id: str,
-    pdf_path: Path,
-    index_dir: Path,
-    parser_mode: str,
-    chunk_size: int,
-    chunk_overlap: int,
-) -> None:
-    job = _jobs[job_id]
-
-    def _set_progress(p: float) -> None:
-        job.progress = p
-
-    try:
-        job.status = "processing"
-        _set_progress(0.1)
-
-        # 1. Parse
-        parser = get_parser(parser_mode)
-        pages = parser.parse(pdf_path)
-        if not pages:
-            raise ValueError(f"No text extracted from '{pdf_path.name}'")
-        _set_progress(0.3)
-
-        # 2. Chunk
-        chunker = TokenAwareChunker(chunk_size=chunk_size, overlap=chunk_overlap)
-        prefix = make_doc_id_prefix(pdf_path.name)
-        chunks = chunker.chunk(
-            pages,
-            doc_id_prefix=prefix,
-            title=pdf_path.stem,
-            source=pdf_path.name,
-        )
-        if not chunks:
-            raise ValueError("Chunker produced zero chunks")
-        _set_progress(0.6)
-
-        # 3. Save docstore
-        docstore_path = index_dir / "docstore.jsonl"
-        save_docstore(docstore_path, chunks)
-        _set_progress(0.8)
-
-        # 4. Build BM25 index
-        docs = load_docstore(docstore_path)
-        _build_bm25(index_dir, docs)
-        _set_progress(0.95)
-
-        # 5. Register with running IndexRegistry
-        try:
-            get_registry().register(job.index_id)
-        except Exception as reg_exc:
-            logger.warning("Registry registration failed (non-fatal): %s", reg_exc)
-
-        job.doc_count = len(chunks)
-        job.status = "completed"
-        job.completed_at = time.time()
-        job.progress = 1.0
-        logger.info(
-            "Ingest job %s completed: %d docs, index_id=%r",
-            job_id, len(chunks), job.index_id,
-        )
-
-    except Exception as exc:
-        job.status = "failed"
-        job.error = str(exc)
-        job.completed_at = time.time()
-        logger.error("Ingest job %s failed: %s", job_id, exc)
+def _data_usage_bytes(data_dir: Path) -> int:
+    if not data_dir.exists():
+        return 0
+    return sum(path.stat().st_size for path in data_dir.rglob("*") if path.is_file())
 
 
 @router.post("/ingest", status_code=202, response_model=IngestJobStatus)
 async def create_ingest_job(
-    background_tasks: BackgroundTasks,
     file: UploadFile,
     index_id: Annotated[str, Form()],
     parser: Annotated[str, Form()] = "pdf",
@@ -147,43 +71,43 @@ async def create_ingest_job(
             ),
         )
 
-    job_id = str(uuid.uuid4())
+    if file.content_type not in {"application/pdf", "application/x-pdf"}:
+        raise HTTPException(status_code=415, detail="Only PDF uploads are accepted.")
+    if not MIN_CHUNK_SIZE <= chunk_size <= MAX_CHUNK_SIZE:
+        raise HTTPException(status_code=422, detail=f"chunk_size must be {MIN_CHUNK_SIZE}-{MAX_CHUNK_SIZE}.")
+    if not 0 <= chunk_overlap < chunk_size:
+        raise HTTPException(status_code=422, detail="chunk_overlap must be >= 0 and smaller than chunk_size.")
+
     # Use the same root configured by scripts/start_api.py --data-dir so a
     # newly ingested index is discoverable by the live registry.
     index_dir = get_registry().data_dir / index_id
-    index_dir.mkdir(parents=True, exist_ok=True)
+    uploads_dir = index_dir / "uploads"
+    uploads_dir.mkdir(parents=True, exist_ok=True)
 
-    # Save the uploaded file synchronously before handing off to background task
+    # Save the uploaded file synchronously before the separate worker claims it.
     # UploadFile.filename is client-controlled. Normalize both POSIX and
     # Windows separators before joining it to the configured index directory.
     upload_name = Path((file.filename or "").replace("\\", "/")).name
     if upload_name in {"", ".", ".."}:
         upload_name = "upload.pdf"
-    pdf_path = index_dir / upload_name
-    content = await file.read()
-    pdf_path.write_bytes(content)
-
-    job = IngestJobStatus(
-        job_id=job_id,
-        index_id=index_id,
-        status="queued",
-        created_at=time.time(),
-    )
-    _jobs[job_id] = job
-
-    background_tasks.add_task(
-        _run_ingestion,
-        job_id,
-        pdf_path,
-        index_dir,
-        parser,
-        chunk_size,
-        chunk_overlap,
+    content = await file.read(MAX_UPLOAD_BYTES + 1)
+    if len(content) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail=f"Upload exceeds {MAX_UPLOAD_BYTES} byte limit.")
+    data_dir = get_registry().data_dir
+    if _data_usage_bytes(data_dir) + len(content) > MAX_DATA_BYTES:
+        raise HTTPException(status_code=507, detail="Configured ingestion storage quota is exhausted.")
+    content_sha256 = hashlib.sha256(content).hexdigest()
+    pdf_path = uploads_dir / f"{content_sha256[:16]}-{upload_name}"
+    if not pdf_path.exists():
+        pdf_path.write_bytes(content)
+    job = get_job_store().create_or_get(
+        index_id=index_id, pdf_path=pdf_path, parser=parser, chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap, content_sha256=content_sha256,
     )
 
     logger.info(
         "Ingest job %s queued: index_id=%r, parser=%r, file=%r",
-        job_id, index_id, parser, file.filename,
+        job.job_id, index_id, parser, file.filename,
     )
     return job
 
@@ -191,7 +115,7 @@ async def create_ingest_job(
 @router.get("/ingest/{job_id}", response_model=IngestJobStatus)
 def get_ingest_job(job_id: str) -> IngestJobStatus:
     """Return the current status of an ingestion job."""
-    job = _jobs.get(job_id)
+    job = get_job_store().get(job_id)
     if job is None:
         raise HTTPException(status_code=404, detail=f"Job {job_id!r} not found.")
     return job

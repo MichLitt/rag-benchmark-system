@@ -124,7 +124,7 @@ uv run python scripts/eval_phase2_full.py --use-real-hhem
 
 ---
 
-## Phase 3: OCR and Async Ingestion
+## Phase 3: OCR and Durable Async Ingestion
 
 ### OCR Parser (scanned/image-based PDFs)
 
@@ -149,6 +149,19 @@ uv run python scripts/ingest_documents.py \
 
 ### Async PDF Ingest Endpoint
 
+The API persists each upload in a SQLite-backed queue. Run the API and worker
+as separate processes against the same `--data-dir`; a worker lease expires and
+is reclaimed after a crash, and duplicate uploads with the same hash and
+ingestion configuration return the original job instead of duplicating work.
+
+```bash
+# Terminal 1: retrieval API
+uv run python scripts/start_api.py --data-dir data/indexes --port 8080
+
+# Terminal 2: durable ingestion worker
+uv run python scripts/start_ingest_worker.py --data-dir data/indexes
+```
+
 Upload a PDF and get back a `job_id`; poll until the index is ready for retrieval:
 
 ```bash
@@ -167,7 +180,9 @@ curl -X POST http://localhost:8080/v1/retrieve \
     -d '{"query": "main contribution", "top_k": 5, "index_id": "my_paper"}'
 ```
 
-Job statuses: `queued` → `processing` → `completed` | `failed`
+Job statuses: `queued` → `processing` → `completed` | `failed`. `attempt_count`
+is included in polling responses; a non-terminal failure is retried up to three
+times by subsequent worker turns.
 
 ## Phase 5: Citation-Constrained Generation
 

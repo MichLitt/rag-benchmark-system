@@ -73,3 +73,4 @@ class IngestJobStatus(BaseModel):
     error: str | None = None
     created_at: float
     completed_at: float | None = None
+    attempt_count: int = Field(0, ge=0)
