@@ -217,6 +217,31 @@ def test_expired_worker_lease_is_reclaimed():
     assert job["attempt_count"] == 2
 
 
+def test_queued_job_survives_api_restart_and_is_completed(tmp_path: Path):
+    """A new API registry/process can read the durable queue left by its predecessor."""
+    pdf_bytes = _make_pdf_bytes(["durable job across an API restart"])
+    with TestClient(app) as first_api:
+        created = first_api.post(
+            "/v1/ingest", data={"index_id": "api-restart"},
+            files={"file": ("manual.pdf", io.BytesIO(pdf_bytes), "application/pdf")},
+        )
+        assert created.status_code == 202
+        job_id = created.json()["job_id"]
+
+    # Simulate a fresh API process: it receives a new registry but shares the
+    # same data directory and thus the same SQLite queue database.
+    handlers.set_registry(IndexRegistry(data_dir=tmp_path / "indexes"))
+    with TestClient(app) as restarted_api:
+        queued = restarted_api.get(f"/v1/ingest/{job_id}")
+        assert queued.status_code == 200
+        assert queued.json()["status"] == "queued"
+        _process_queued_job()
+        completed = restarted_api.get(f"/v1/ingest/{job_id}").json()
+
+    assert completed["status"] == "completed"
+    assert completed["doc_count"] > 0
+
+
 def test_ingest_rejects_wrong_content_type_and_invalid_chunking():
     with TestClient(app) as client:
         wrong_type = client.post(
