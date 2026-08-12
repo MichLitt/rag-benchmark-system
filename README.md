@@ -184,6 +184,9 @@ Job statuses: `queued` → `processing` → `completed` | `failed`. `attempt_cou
 is included in polling responses; a non-terminal failure is retried up to three
 times by subsequent worker turns.
 
+Set `RAG_API_TOKEN` to require an `Authorization: Bearer <token>` header for
+ingestion and retrieval. `/v1/health` remains public for orchestration checks.
+
 ## Phase 5: Citation-Constrained Generation
 
 The merged Phase 5 path adds dataset-specific prompts, answer post-processing,

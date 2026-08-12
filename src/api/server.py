@@ -7,11 +7,12 @@ or directly:
 """
 from __future__ import annotations
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.concurrency import run_in_threadpool
 
 from src.api.handlers import handle_health, handle_retrieve
 from src.api.ingest import router as ingest_router
+from src.api.auth import require_api_token
 from src.api.models import HealthResponse, RetrieveRequest, RetrieveResponse
 
 app = FastAPI(
@@ -20,10 +21,10 @@ app = FastAPI(
     version="0.2.0",
 )
 
-app.include_router(ingest_router, prefix="/v1")
+app.include_router(ingest_router, prefix="/v1", dependencies=[Depends(require_api_token)])
 
 
-@app.post("/v1/retrieve", response_model=RetrieveResponse)
+@app.post("/v1/retrieve", response_model=RetrieveResponse, dependencies=[Depends(require_api_token)])
 async def retrieve(req: RetrieveRequest) -> RetrieveResponse:
     """Search a pre-built index and return top-k documents with scores."""
     return await run_in_threadpool(handle_retrieve, req)
