@@ -81,6 +81,22 @@ uv run python scripts/ingest_documents.py \
 
 Each chunk carries `page_start`, `page_end`, `source`, and `section` metadata for downstream citation grounding.
 
+### Versioned text corpus index
+
+For a controlled evaluation over checked-in Markdown/text documentation, build
+a deterministic BM25 index without passing through the PDF upload queue:
+
+```bash
+uv run python scripts/build_text_index.py \
+    --manifest ../experiments/g3-agent-rag-ablation/rag-corpus-manifest.json \
+    --workspace-root .. \
+    --output-dir data/indexes/g3-agent-rag-ablation-v1
+```
+
+The generated `corpus-build-manifest.json` records source-file hashes,
+chunking parameters, and the docstore hash. Generated indexes are runtime
+artifacts and must not be committed.
+
 ### Retrieval API
 
 ```bash
