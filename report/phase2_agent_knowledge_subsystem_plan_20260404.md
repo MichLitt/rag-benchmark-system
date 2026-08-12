@@ -3,7 +3,7 @@
 **文档版本**：v1.3（2026-04-04，自检统一性与完备性修订）
 **撰写日期**：2026-04-04
 **项目状态**：Phase 1 已关闭（2026-03-10），本文件规划 Phase 2 转型路径
-**对应路线图**：`AI_Intern_Project_Roadmap.md` §6 / Phase 3（第 6-7 周）
+**对应路线图**：[portfolio roadmap](https://github.com/MichLitt/agent-systems-portfolio/blob/main/docs/roadmap/portfolio-roadmap.md) §6 / Phase 3（第 6-7 周）
 
 > **v1.1 变更说明**：经第一轮 Codex 审查，修正了以下问题：Document schema 迁移缺失、ingest API 与现有 index builder 不兼容、Vectara 模型加载代码错误、SPLADE++ 年份错误、FaithBench 引用范围偏差、SPLATE 延迟声明过度推广、citation 指标缺乏操作性定义、page grounding 精确匹配过严、人工一致性样本量不足、B1/B2 scope 无 gate、两周时序切分不合理。
 
@@ -34,7 +34,7 @@ Phase 1 的核心 RAG benchmark 工作已于 2026-03-10 完整关闭，主要结
 
 ### 1.2 战略转型：从 RAG Benchmark 到 Agent Knowledge Subsystem
 
-根据 `AI_Intern_Project_Roadmap.md` 的整体策略调整：
+根据 [portfolio roadmap](https://github.com/MichLitt/agent-systems-portfolio/blob/main/docs/roadmap/portfolio-roadmap.md) 的整体策略调整：
 
 ```
 旧定位：独立的 RAG benchmark flagship

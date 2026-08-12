@@ -100,8 +100,8 @@ def test_chunker_basic_single_page():
 
 def test_chunker_respects_chunk_size():
     """Each chunk must contain at most chunk_size tokens."""
-    import tiktoken
-    enc = tiktoken.get_encoding("cl100k_base")
+    from src.tokenization import get_tokenizer
+    enc = get_tokenizer("cl100k_base")
     # ~600 tokens of text across 1 page
     long_text = ("The quick brown fox jumps over the lazy dog. " * 40)
     pages = [PageSpan(page_num=1, text=long_text)]
@@ -114,8 +114,8 @@ def test_chunker_respects_chunk_size():
 
 def test_chunker_overlap_creates_shared_tokens():
     """Consecutive chunks share exactly `overlap` tokens at the boundary."""
-    import tiktoken
-    enc = tiktoken.get_encoding("cl100k_base")
+    from src.tokenization import get_tokenizer
+    enc = get_tokenizer("cl100k_base")
     text = "token " * 200  # simple repeated word
     pages = [PageSpan(page_num=1, text=text)]
     chunker = TokenAwareChunker(chunk_size=50, overlap=10)
@@ -324,9 +324,9 @@ def test_factory_returns_pdf_parser():
     assert isinstance(p, PdfParser)
 
 
-def test_factory_ocr_not_implemented():
-    with pytest.raises(NotImplementedError):
-        get_parser("ocr")
+def test_factory_ocr_returns_ocr_parser():
+    from src.ingestion.ocr_parser import OcrPdfParser
+    assert isinstance(get_parser("ocr"), OcrPdfParser)
 
 
 def test_factory_unknown_mode_raises():

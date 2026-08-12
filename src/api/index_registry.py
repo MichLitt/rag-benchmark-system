@@ -46,6 +46,11 @@ class IndexRegistry:
         self._entry_locks: dict[str, threading.Lock] = {}
         self._global_lock = threading.Lock()  # protects _entry_locks dict
 
+    @property
+    def data_dir(self) -> Path:
+        """Root used for both index discovery and runtime ingestion."""
+        return self._data_dir
+
     # ------------------------------------------------------------------ #
     # Discovery
     # ------------------------------------------------------------------ #
@@ -81,11 +86,39 @@ class IndexRegistry:
         return self._entries[index_id].index_type
 
     # ------------------------------------------------------------------ #
+    # Runtime registration (used by async ingest jobs)
+    # ------------------------------------------------------------------ #
+
+    def register(self, index_id: str) -> None:
+        """Load and register a newly-created index without restarting the server.
+
+        Safe to call concurrently: uses the same per-index locking as lazy load.
+        If the index is already loaded this is a no-op.
+
+        Args:
+            index_id: Sub-directory name under ``data_dir`` that contains the
+                index files (at minimum ``docstore.jsonl`` + ``bm25.pkl``).
+
+        Raises:
+            KeyError: If the index directory or required files are missing.
+            ValueError: If the retriever type cannot be determined.
+        """
+        with self._global_lock:
+            if index_id not in self._entry_locks:
+                self._entry_locks[index_id] = threading.Lock()
+
+        with self._entry_locks[index_id]:
+            if index_id in self._entries:
+                logger.debug("Index %r already registered, skipping.", index_id)
+                return
+            self._load_locked(index_id)
+
+    # ------------------------------------------------------------------ #
     # Private
     # ------------------------------------------------------------------ #
 
     def _load(self, index_id: str) -> None:
-        # Ensure a per-index lock exists (global_lock protects this dict write)
+        """Acquire per-index lock then delegate to ``_load_locked``."""
         with self._global_lock:
             if index_id not in self._entry_locks:
                 self._entry_locks[index_id] = threading.Lock()
@@ -93,22 +126,25 @@ class IndexRegistry:
         with self._entry_locks[index_id]:
             if index_id in self._entries:
                 return  # another thread finished loading while we waited
+            self._load_locked(index_id)
 
-            index_dir = self._data_dir / index_id
-            if not index_dir.is_dir():
-                raise KeyError(
-                    f"Index {index_id!r} not found "
-                    f"(looked in {self._data_dir.resolve()})"
-                )
-            if not (index_dir / "docstore.jsonl").exists():
-                raise KeyError(
-                    f"Index {index_id!r}: missing docstore.jsonl in {index_dir}"
-                )
+    def _load_locked(self, index_id: str) -> None:
+        """Load index from disk. Caller must hold the per-index lock."""
+        index_dir = self._data_dir / index_id
+        if not index_dir.is_dir():
+            raise KeyError(
+                f"Index {index_id!r} not found "
+                f"(looked in {self._data_dir.resolve()})"
+            )
+        if not (index_dir / "docstore.jsonl").exists():
+            raise KeyError(
+                f"Index {index_id!r}: missing docstore.jsonl in {index_dir}"
+            )
 
-            logger.info("Loading index %r from %s", index_id, index_dir)
-            retriever, itype = _build_retriever(index_dir)
-            self._entries[index_id] = _IndexEntry(retriever=retriever, index_type=itype)
-            logger.info("Index %r loaded (type=%s)", index_id, itype)
+        logger.info("Loading index %r from %s", index_id, index_dir)
+        retriever, itype = _build_retriever(index_dir)
+        self._entries[index_id] = _IndexEntry(retriever=retriever, index_type=itype)
+        logger.info("Index %r loaded (type=%s)", index_id, itype)
 
 
 def _build_retriever(index_dir: Path) -> tuple[Any, str]:
