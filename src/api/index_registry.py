@@ -19,9 +19,6 @@ from pathlib import Path
 from typing import Any
 
 from src.logging_utils import get_logger
-from src.retrieval.bm25 import BM25Retriever
-from src.retrieval.faiss_dense import FaissDenseRetriever
-
 logger = get_logger(__name__)
 
 
@@ -156,6 +153,11 @@ def _build_retriever(index_dir: Path) -> tuple[Any, str]:
     has_bm25 = (index_dir / "bm25.pkl").exists()
 
     if has_dense:
+        # Import the ML stack only when a dense index is actually requested.
+        # The HTTP service must stay usable for BM25-only deployments (such as
+        # the controlled G3 corpus) without importing torch/transformers.
+        from src.retrieval.faiss_dense import FaissDenseRetriever
+
         offsets = index_dir / "docstore.offsets"
         retriever = FaissDenseRetriever(
             faiss_index_path=index_dir / "index.faiss",
@@ -166,6 +168,8 @@ def _build_retriever(index_dir: Path) -> tuple[Any, str]:
         return retriever, "dense"
 
     if has_bm25:
+        from src.retrieval.bm25 import BM25Retriever
+
         retriever = BM25Retriever(
             bm25_path=index_dir / "bm25.pkl",
             docstore_path=index_dir / "docstore.jsonl",
