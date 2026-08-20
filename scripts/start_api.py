@@ -32,13 +32,21 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
+    # These checkpoints make background-service startup failures diagnosable
+    # from a CI job log, where the process output is otherwise only visible
+    # after the health check times out.
+    print("[rag-api] configuring index registry", flush=True)
+
     # Configure the registry before importing the app so the data_dir is set
     from src.api.handlers import set_registry
     from src.api.index_registry import IndexRegistry
 
     set_registry(IndexRegistry(data_dir=args.data_dir))
 
+    print("[rag-api] importing uvicorn", flush=True)
     import uvicorn
+
+    print(f"[rag-api] listening on http://{args.host}:{args.port}", flush=True)
     uvicorn.run(
         "src.api.server:app",
         host=args.host,
